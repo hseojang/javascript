@@ -4,19 +4,20 @@
     //실제로 script에서 this는 다루기 어려움
     // 자바스크립트 커뮤니티에 강력항의 제대로 대응하라
     // call,apply,bind를 가지고 직접 this를 제어하시옹
-var f_check = function(p_arg1,p_arg2,p_arg3){
-    console.log("매개변수:",p_arg1,p_arg2,p_arg3);
-    console.log(this)//? 상황에 따라 가리키는 값이 바뀜
-}
+    var f_check = function (p_arg1, p_arg2, p_arg3) {
+        console.log("매개변수:", p_arg1, p_arg2, p_arg3);
+        console.log(this)//? 상황에 따라 가리키는 값이 바뀜
+    }
 
-//f_check();
-// = window.f_check();를 생략한 것이므로 this는 window 객체를 가리킨다
+    //f_check();
+    // = window.f_check();를 생략한 것이므로 this는 window 객체를 가리킨다
 
 
-var v_obj = {name:"오세현 먹어도 안 쪄요"};
-v_obj.myfunc = f_check;
-                        //  p_arg1, p_arg2, p_arg3
-//v_obj.myfunc.call(document,"매개1","매개2","매개3");
-v_obj.myfunc.apply(document,["매개11","매개22","매개33"]);
+    var v_obj = { name: "오세현 먹어도 안 쪄요" };
+    v_obj.myfunc = f_check;
+    //  p_arg1, p_arg2, p_arg3
+    //v_obj.myfunc.call(document,"매개1","매개2","매개3");
+    v_obj.myfunc.apply(document, ["매개11", "매개22", "매개33"]);
+    // call과는 다르게 apply는 두 번째 인자부터 모두 배열에 넣어야 함 입력 방식만이 차이
 
 </script>

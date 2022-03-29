@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #id_ball {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+            /* 50%면 동그라미 */
+        }
+
+        #id_bar {
+            position: absolute;
+            width: 150px;
+            height: 20px;
+            background-color: blueviolet;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" value="눌러방" onclick="f_move()">
+    <input type="button" value="세워방" onclick="f_stop()">
+    <div id="id_ball" style="position:absolute;left:0px;top:200px"></div>
+    <div id="id_bar" style="left:10px;top:400px"></div>
+    <script>
+        var v_ball = document.querySelector("#id_ball");
+        var v_bar = document.querySelector("#id_bar");
+        var v_mvWidth = 10; // 좌우이동폭
+        var v_mvHeight = 10; // 위아래이동폭
+        var v_wndWidth = window.innerWidth;
+        var v_wndHeight = window.innerHeight;
+        var v_timerId;  //전역변수로 선언
+
+
+
+
+        function f_stop() {
+            clearTimeout(v_timerId); // 타이머 없애깅
+        }
+        function f_move() {
+            v_ball.style.left = parseInt(v_ball.style.left) + v_mvWidth + "px";
+            v_ball.style.top = parseInt(v_ball.style.top) + v_mvHeight + "px";
+            var v_left = parseInt(v_ball.style.left);
+            var v_rigt = parseInt(v_ball.style.left) + 50;
+            var v_top = parseInt(v_ball.style.top);
+            var v_bottom = parseInt(v_ball.style.top) + 50;
+
+            var v_barLeft = parseInt(v_bar.style.left);
+            var v_barRigt = parseInt(v_bar.style.left) + 150;
+            var v_barTop = parseInt(v_bar.style.top);
+            var v_barBtm = parseInt(v_bar.style.top) + 20;
+
+            //오른쪽 부딪히거나, 왼쪽에 부딪히거나 OR조건   +10 이 -10이됨
+            if ((v_rigt >= v_wndWidth) || (v_left <= 0)) {
+                v_mvWidth = -v_mvWidth; // 부호만 체인지
+            }
+            //아래쪽 부딪히거나, 윗쪽에 부딪히거나 OR조건   +10 이 -10이됨
+            if ((v_bottom >= v_wndHeight) || (v_top <= 0)) {
+                v_mvHeight = -v_mvHeight; // 부호만 체인지
+            }
+
+            // 바에 부딪힐 때 움직이는 조건
+            // 공의 바닥이 바의 윗부분보다 더 아래에 위치할 때(조건1), 공의 윗부분이 바의 바닥보다 더 위에 위치하게 될 때(조건2)
+            // 공이 바에 접하는(공의 일부분이 바에 위치하는) == 두 조건이 모두 만족되는 순간에만 공의 방향 전환이 이뤄져야 함
+            // 동시에 가로로는 바의 좌우 폭 사이에 위치할 때(조건3, 4)
+            if (((v_bottom >= v_barTop) && (v_top <= v_barBtm)) && (v_barLeft <= (v_left + 25)) && (v_barRigt >= (v_left + 25))) {
+                v_mvHeight = -v_mvHeight;
+                // v_mvWidth = -v_mvWidth; // 좌우 방향을 바꿀 필요가 있나?
+            }
+
+            console.log(v_barLeft);
+            console.log(v_left)
+            console.log(v_barRigt);
+            //타이머 발생기
+            v_timerId = setTimeout(f_move, 500); // 함수이름만 써준당(FP)
+
+        }
+        //window size 변경 이벤트
+        window.addEventListener("resize", function () {
+            console.log(window.innerWidth); //변경값 확인
+            v_wndWidth = window.innerWidth;
+            v_wndHeight = window.innerHeight;
+        });
+
+        var f_keyDown = function () {
+            var v_barMvWidth = 10;
+
+            if (event.keyCode == 37) {
+                // 왼쪽 키 눌렸을 때
+
+                // 윈도우 경계에서는 움직이지 않도록 설정
+                if (parseInt(v_bar.style.left) <= 0) {
+                    v_barMvWidth = 0;
+                }
+
+                v_bar.style.left = parseInt(v_bar.style.left) - v_barMvWidth + "px";
+                // 조건이 먼저 실행되어야 경계선에서 이동 불가
+                // 경계 반대방향으로 움직이면 조건이 풀림
+                // 공 이동의 경우 경계 부근에서 부호가 무한정 바뀌는 것을 막으려면 공의 움직임이 선행되어야 함
+                // ( = 일단 움직인 후, 이동 방향 판정)
+                // 반면 바의 경우는 경계 밖으로 무조건 움직일 수 없는 제약이므로 조건이 선행
+
+            }
+
+            if (event.keyCode == 39) {
+                // 오른쪽 키 눌렸을 때
+
+                if (parseInt(v_bar.style.left) + 150 >= v_wndWidth) {
+                    v_barMvWidth = 0;
+                }
+
+                v_bar.style.left = parseInt(v_bar.style.left) + v_barMvWidth + "px";
+
+            }
+
+            //alert(event.keyCode); //키값 확인
+            //alert(event.key); //요게 조금 나중꺼
+        }
+        window.addEventListener("keydown", f_keyDown); // 키가 눌렸을 때 함수를 실행하는 이벤트 리스너
+    // keyDown과 keyPress의 차이?
+    // keyCode = 37, 39
+    // key = ArrowLeft, ArrowRight
+
+   // alert(window.innerHeight); // 사용자가 보는 윈도우높이
+   // alert(window.innerWidth);   // 사용자가 보는 윈도우넓이
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>validation(유효성검사)</title>
+</head>
+<body>
+<!--html 페이지에서 서버로 어떤 정보를 보내려면 꼭 form태그가 필요-->    
+<!-- default 메소드는 get -->
+<!-- name 속성 주는 걸 잊어버리는 사람이 많음 -->
+<!--?뒤에 문자열을 보통 쿼리스트링(QueryString)이라고 부름-->
+<!-- form태그는 여러번 들어가도 되나, form안에 form을 쓰면 안된당 -->
+<form action="시작.html" onsubmit="return f_submit()">
+    아이디<input id="id_id" type="text" name="nm_id" value=""><br>
+    암호<input  id="id_pw" type="password" name="nm_pw" value=""><br>
+    <input type="submit" value="떤쏭">
+</form>
+
+<script>
+//원래 자바스크립트는 단순히 유효성체크를 위해서 출현
+//서버로 값을 보내기 전에 사용자가 값을 입력했는지 체크하기 위해서 
+var f_submit= function(){
+  var v_id = document.querySelector("#id_id"); 
+  if(!v_id.value){
+    alert("바보얌 id는 써야징");
+    v_id.focus();  // id 텍스트박스에 마우스 커서주깅
+    return false;  // 전송 안하기
+  }
+  var v_pw = document.querySelector("#id_pw") 
+  if(!v_pw.value){
+    alert("뭐얌 넌 암호도 없어?ㅠㅠㅠ")
+    v_pw.focus(); // pw 텍스트박스에 마우스 커서주깅
+    return false; // 전송 안하기
+  }
+  
+  //그외 경우 전송하기
+  return true;
+}
+</script>    
+</body>
+</html>

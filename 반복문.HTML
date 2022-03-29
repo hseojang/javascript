@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<script>
+    // 스크립트의 특별한 반복문 for in
+    var v_obj = {
+        name1:"네임1",
+        name2:"네임2",
+        name3:"네임3",
+        name4:"네임4"
+    }
+
+    /*
+    for (var v_key in v_obj) {
+        alert("key: " + v_key + " value: " + v_obj[v_key]);
+    }
+    */
+
+    // 잘 알아두면 가끔 아주 유용함
+    for (var v_key in document) {
+        document.write(v_key + " : " + document[v_key] + "<br>");
+    }
+
+    // 반복문 for, while
+
+    var i = 1;
+    var sum = 0;
+
+    /*
+    while ("이거슨 참") {
+        // 빠져나가는 조건
+        // 브레이크 조건 없이 무한정 돌아가는 것 : 서버 프로그램
+        sum += i;
+        if (i == 10) {
+            alert(sum);
+            break;
+        }
+        i++;
+    }
+    */
+
+    /*
+    // while문을 for문으로 고치기 역도 가능
+    for (; "나도 참";) { // for문도 인덱스와 증감치 없이 true만 조건식으로 가질 때 무한 반복문이 된다
+        // 다만 구분하는 ; 은 있어야되는듯
+        sum += i;
+        if( i==9) continue;  // 보통 특정 조건에서 SKIP할 때 사용
+        if (i == 10) {
+            alert(sum);
+            break;
+        }
+        i++;
+    }
+    */
+</script>

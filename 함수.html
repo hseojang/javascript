@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<script>
+f_name();// 함수가 만들어지기 전에 call  hoisting이라 부름 
+//선언부만 미리 앞으로 끌어올림
+//(곧 일부분 최적화가 모르게 진행된다는 이야기)
+var f_name=function(){ // 표현식(Expression)임 함수 선언이 아님
+    alert("함수얌!");
+}
+
+//자바스크립트는 함수지향언어, 객체지향언어를 바탕
+//var v_roze = "로제"; // 아래와 같음
+/*
+window.v_roze = "로제";
+//alert(window.v_roze);
+
+window.myRoze=function(){
+    alert("Gone");
+} 
+myRoze();
+*/   
+</script>

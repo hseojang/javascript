@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+ 
+<style>
+    div {
+        border: 1px solid black;
+    }
+
+    #grandMother {
+        width: 200px;
+        height: 200px;
+    }
+
+    #mother {
+        width: 100px;
+        height: 100px;
+    }
+
+    #na {
+        width: 50px;
+        height: 50px;
+    }
+</style>
+</head>
+
+<body>
+    <div id="grandMother" onclick="f_grand()"> 할머닝
+        <div id="mother" onclick="f_mother()">엄마
+            <div id="na" onclick="f_na()">나 김치훈</div>
+        </div>
+    </div>
+    <script>
+        //이벤트 버블링이라고 부름(이벤트가 부모방향으로 전파됨)
+        //이벤트 전파를 막은 상황을 이벤트 캡쳐링이라고 부름 
+        var f_grand = function () {
+            alert("나 할머니얌");
+        }
+        var f_mother = function () {
+            event.stopPropagation(); //이벤트 전파 막깅
+            alert("나 어마무시 엄마");
+        }
+        var f_na = function () {
+            event.stopPropagation(); //이벤트 전파 막깅
+            alert("나야 나 치훈이");
+        }
+
+    </script>
+    <!-- a 태그에는 자체적으로 클릭했을 때 href에 등록된
+곳으로 이동하는 기능이 들어있음(built-in) -->
+    <a href="http://naver.com" onclick="f_check()">네이버로 가용/안가용?</a>
+    <script>
+        var f_check = function () {
+            event.preventDefault(); // built-in 기능 막기
+            alert("나 눌렀엉?");
+        }
+    </script>
+
+</html>

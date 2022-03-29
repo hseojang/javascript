@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!--인라인 이벤트, 안 권장, 테스트에 주로 사용-->
+    <input id="id_btn" type="button" value="눌러방 " 
+      onclick="f_inline(this)">
+    <input id="id_btn2" type="button" value="난 다른버튼">
+<script>
+    //이벤트 등록법2
+    var v_btn2 = document.querySelector("#id_btn2");
+    /*
+    v_btn2.onclick = function(){
+        alert("나 눌렀엉? 왜엥?");
+    }
+    v_btn2.onclick = function(){
+        alert("한찬 길을 찾았네?ㅠㅠ");
+    }
+    */
+    //이벤트 등록법 3번(가장 최신형)
+    //이벤트가 발생했을때 실행하는 함수를 이벤트 핸들러라고 부름
+    //이벤트 핸들러에 자동으로 event객체를 넘기도록 설계되어 있음
+    v_btn2.addEventListener("click",function(e){
+      //  console.log(event.target); //이벤트를 발생시킨 객체
+        console.log("체킁:",e.target); //이벤트를 발생시킨 객체
+    });
+    var f_roze = function(){
+        alert("블랙핑크 블링크에 가입해주세용^-^");
+    }
+    v_btn2.addEventListener("click",f_roze);
+
+
+
+    var f_inline = function(p_this){
+        console.log(p_this);
+        p_this.value = "꾸욱 눌러방";
+        p_this.style.backgroundColor = "gray";
+        p_this.style["color"]="white";
+    //    document.querySelector("#id_btn").value="꾹눌러방";
+    }
+</script>    
+</body>
+</html>

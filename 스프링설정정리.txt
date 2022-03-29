@@ -1,0 +1,9 @@
+1. STS(3914),Tomcat(9),Tern121,Maven Download
+2. STS 실행 후 Tern-Plugin(자바스크립트 자동완성) 설치
+3. encoding 먼저 UTF-8로 설정(안하면 나중에 완전 짜증)
+4. 새 프로젝트 Legacy -> MVC
+5. Marker/Problem 오류  해결 -> Project-Facets -> 버젼 맞춰줌 -> tomcat추가
+6. pom.xml 수정 -> 자바버젼, build툴버젼(최신으로), servlet버젼 
+  => scope  compile(컴파일에도 사용,배포에도 추가), runtime, provided, test
+7. web.xml  sevlet 버젼 맞추기
+8. convert to tern project 선택

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #id_ball {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+            /* 50%는 동그라미 */
+        }
+    </style>
+</head>
+
+<body>
+    <input id="id_moveBtn" type="button" value="눌러방" onclick="f_move()">
+    <input id="id_stopBtn" type="button" value="세워방" onclick="f_stop()">
+    <div id="id_ball" style="position: absolute; left: 0px; top: 100px;"></div>
+    <!-- position의 기본 값이 static이기 때문에 임의로 변경하기 전까지는 style로 위치 임의조정 불가능 -->
+
+    <script>
+
+        var v_ball = document.querySelector("#id_ball");
+        var v_wndWidth = window.innerWidth;
+        var v_mvWidth = 10;
+        var v_timerId = 0;
+
+        // document.getElementById("").addEventListener('toggle', f_move);
+
+        function f_stop() {
+            clearTimeout(v_timerId);
+        }
+
+        function f_move() {
+            // parseInt()는 뒤의 문자열을 버린다
+            v_ball.style.left = parseInt(v_ball.style.left) + v_mvWidth + "px"
+            // if((parseInt(v_ball.style.left)+50)>=window.innerWidth) {
+            //     v_mvWidth = -10;
+            // }
+
+            // if((parseInt(v_ball.style.left))<=0) {
+            //     v_mvWidth = 10;
+            // }
+
+            if ((parseInt(v_ball.style.left) + 50) >= v_wndWidth || (parseInt(v_ball.style.left)) <= 0) {
+                v_mvWidth = -v_mvWidth;
+            }
+
+            // window size 변경 이벤트(이렇게 하면 매번 창 크기를 읽어오지 않아도 된다)
+            window.addEventListener("resize", function () {
+                console.log(window.innerWidth); // 변경값 확인
+                v_wndWidth = window.innerWidth;
+            });
+
+
+            // setTimeout(f_move(), 500); 이렇게 쓰면 f_move() 자체가 실행문이므로 대기시간 없이 호출
+            v_timerId = setTimeout(f_move, 200); // 타임아웃으로 호출할 함수 이름만 써준다(Function Pointer, FP)
+            // setTimeout은 timeoutID를 반환한다
+        }
+        // alert(window.innerHeight); // 사용자가 보는 윈도우 높이
+        // alert(window.innerWidth); // 사용자가 보는 윈도우 너비
+
+        // 어떤 값은 변하고 어떤 값은 고정되지? => 
+        // 초기화할 때 입력해주는 값은 일반적으로 그 순간의 값이고 함수가 실행되거나 변할 때 대입되는 값은 변하는 듯...
+    </script>
+
+</body>
+
+</html>

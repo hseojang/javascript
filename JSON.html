@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+    <div id="id_div" style="border:2px solid black"></div>
+</body>
+<script>
+    //최근 추세는 querySelector와 querySelectorAll을 많이 씀
+    var v_div = document.querySelector("#id_div");
+    v_div.style["background-color"] = "black";
+    v_div.style["color"] = "yellow";
+    v_div.innerHTML = "<h1>로제 좋아요?</h1>";
+    alert(document.body.innerHTML);
+    //v_div.style.color="yellow";
+
+
+
+    //JSON -> JavaScript Object Notation(JS 객체 표기법)
+    //넓은 의미로는 {}와 Array 포함 *이것이 정확
+    //좁은 의미로는 {} 만 지칭
+    //CSV(Comma Seperated Value) 용량이 적어서 부활
+
+    var name="hello";
+    /*
+    var v_obj = {
+        name:"로제",    // 속성 추가
+        age:25,         // 속성 추가
+    }
+    */
+    //위와 똑같은 선언 배열식 접근법이라 부름
+    var v_obj = {
+        [name]:"로제2",    // 속성 추가
+        ["age"]:250,         // 속성 추가
+    }
+    // 속성 지우는 건 delete
+    delete v_obj.age;
+
+
+   console.log(v_obj.name); // ? undefined 
+   console.log(v_obj); // ? undefined 
+</script>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    var caclulator = function (p_op) {
+        // 함수를 리턴하는 함수
+
+        if (p_op == "+") {
+            return function (a, b) {
+                return a + b;
+            }
+        }
+
+        if (p_op == "-") {
+            return function (a, b) {
+                return a - b;
+            }
+        }
+
+    }
+
+    var f_add = caclulator("+");
+    alert(f_add(3, 4));
+    var f_minus = calculator("-");
+    alert(f_minus(7, 4));
+
+</script>

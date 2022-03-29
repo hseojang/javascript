@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>넘 쉬운문제</title>
+</head>
+<body>
+    <table id = "t_table"></table>
+<script>
+var v_members = [
+    {name:"로제",position:"grade1"},
+    {name:"제니",position:"grade2"},
+    {name:"리사",position:"grade3"},
+    {name:"지수",position:"grade4"},
+    {name:"슈",position:"grade2"}
+];
+
+var v_levels = {
+    grade1: "사장님",
+    grade2: "전무님",
+    grade3: "부장님",
+    grade4: "사원님"
+}
+
+function getGrade (p_members, p_levels) {
+    for(var i=0; i<p_members.length; i++) {
+        var a = p_members[i].position;
+        console.log(a);
+       p_members[i].level = p_levels[a]; 
+       console.log(p_levels[a]);
+    }
+
+}
+
+getGrade(v_members, v_levels);
+
+
+var v_tblStr = "<table border=2>";
+v_tblStr += "<tr><th>번호</th><th>이름</th><th>직위</th></tr>";
+for(var i=0; i<v_members.length; i++){
+    v_tblStr += "<tr>";
+    v_tblStr += "<td>" + (i+1) + "</td>";
+    v_tblStr += "<td>" + v_members[i].name + "</td>";
+    v_tblStr += "<td>" + v_members[i].level + "</td>";
+    v_tblStr += "</tr>";
+}
+v_tblStr += "</table>";
+document.querySelector("#t_table").innerHTML=v_tblStr;
+
+
+
+
+
+/* 숙제는 위의 2가지 데이터를 이용해서 
+   아래 처럼 테이블(table 태그 이용)로 출력
+   넘버  이름    직위
+    1    로제    사장님
+    2    제니    전무님
+   ......
+*/
+</script>
+</body>
+</html>

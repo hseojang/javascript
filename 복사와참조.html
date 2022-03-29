@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    //변수 타입, number, string, boolean, Object(배열포함), null, undefined
+    // number, string, boolean 는 원시타입(Primitive)이라고 부름
+    // 복사(원시타입)와 참조(객체타입)
+    var v_roze = "로제";
+    var v_jenni = v_roze;  // 값의 복사(원시타입일 경우)
+    v_jenni = "제니";
+    //alert(v_roze); //? v_roze 와 v_jenni는 별개
+
+    var v_risa = {   
+        name:"난 리사"
+    }
+    
+    var v_jisu = v_risa;   // 값의 참조(객체일 경우), 같은 것을 가리킴(하나의 별명)
+    v_jisu.name="난 지수";
+    alert(v_risa.name); //? 난 지수
+
+    // Object vs Instance? 무슨 차이?
+    //  인간   vs  사람
+
+
+</script>

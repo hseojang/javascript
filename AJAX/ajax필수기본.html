@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 기본은 꼭 반복연습해서 손에 익을 때까징
+        // ajax 생성
+        var v_ajax = new XMLHttpRequest();
+        // ajax에 시킬일 지정
+        // v_ajax.open("메소드", "URL", "비동기여부");
+        v_ajax.open("get", "../시작.html", true);
+        // ajax에 이벤트(상황변화)가 생길 때 할 일을 지정
+        v_ajax.onreadystatechange = function() {
+            if(v_ajax.readyState == 4 && v_ajax.status == 200) { 
+                // readyState는 0~4까지 존재
+                // 4는 통신이 끝나고 결과를 받았을 때, 데이터 처리가 끝나 응답할 준비가 되었을 때
+                    alert(v_ajax.responseText);
+            }
+        }
+        // ajax로 요청 전송
+        v_ajax.send();
+        alert("전 언제 떠요?")
+
+        // ajax가 비동기이기 때문에 사이트 화면이 그려지면서 데이터를 띄우는 것이 가능
+        // 동기라면 ajax 요청이 처리되고 사이트 화면이 그려지면서 사용자 입장에서 느리게 느껴질 수 있음
+
+    </script>
+</body>
+
+</html>

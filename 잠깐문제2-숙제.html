@@ -36,8 +36,7 @@
         var v_wndHeight = window.innerHeight;
         var v_timerId;  //전역변수로 선언
 
-
-
+        // 문제 : 한번 누른다고 속도가 더 빨라지지 않도록 하기
 
         function f_stop() {
             clearTimeout(v_timerId); // 타이머 없애깅
@@ -77,6 +76,7 @@
             console.log(v_left)
             console.log(v_barRigt);
             //타이머 발생기
+
             v_timerId = setTimeout(f_move, 500); // 함수이름만 써준당(FP)
 
         }

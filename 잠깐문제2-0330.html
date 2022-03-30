@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    #id_ball {
+        width:50px;
+        height:50px;
+        background-color: red;
+        border-radius: 50%; /* 50%면 동그라미 */
+        background-image: url("./image/myroze.jpg");
+        background-size:50px 50px;
+        /*transform: skewY(45deg);*/
+    }
+    #id_bar {
+        position:absolute;
+        width:150px;
+        height:20px;
+        background-color: blueviolet;
+    }
+</style>
+</head>
+<body>
+    <input type="button" value="눌러방" onclick="f_proxy()">
+    <input type="button" value="세워방" onclick="f_stop()">
+    <div id="id_ball" style="position:absolute;left:0px;top:200px"></div>
+    <div id="id_bar" style="left:10px;top:400px"></div>
+<script>
+    //아주 중요한 Proxy패턴,머리속에 잘 담아둡니다.
+    //때론 안이 아니라 밖에서 제어하는 것이 훨씬 편할수 있다
+    var v_isStart = false; // 시작전 상태
+    var f_proxy=function(){ // function f_proxy()
+        if(!v_isStart){
+            f_move();
+            v_isStart=true;
+        }
+    }
+
+    var v_ball = document.querySelector("#id_ball");
+    var v_mvWidth = 10; // 좌우이동폭
+    var v_mvHeight = 10; // 위아래이동폭
+    var v_wndWidth = window.innerWidth;
+    var v_wndHeight = window.innerHeight;
+    var v_timerId;  //전역변수로 선언
+    var v_gakdo = 0; // 회전각
+    function f_stop(){
+        v_isStart=false; // 다시 눌러방 누를수 있겡
+        clearTimeout(v_timerId); // 타이머 없애깅
+    }
+    function f_move(){
+      v_gakdo = (v_gakdo+30) % 360 ;
+      v_ball.style.transform = "rotate(" + v_gakdo + "deg)";  
+      v_ball.style.left = parseInt(v_ball.style.left) + v_mvWidth + "px";
+      v_ball.style.top = parseInt(v_ball.style.top) + v_mvHeight + "px";
+      var v_left = parseInt(v_ball.style.left);
+      var v_rigt = parseInt(v_ball.style.left)+50;
+      var v_top = parseInt(v_ball.style.top);
+      var v_bottom = parseInt(v_ball.style.top)+50;
+
+
+      //오른쪽 부딪히거나, 왼쪽에 부딪히거나 OR조건   +10 이 -10이됨
+      if((v_rigt >= v_wndWidth) || (v_left <=0) ){
+        v_ball.style.transform = "skewX(45deg)";  
+        v_mvWidth = -v_mvWidth; // 부호만 체인지
+      }
+      //아래쪽 부딪히거나, 윗쪽에 부딪히거나 OR조건   +10 이 -10이됨
+      if((v_bottom >= v_wndHeight) || (v_top <=0) ){
+        v_ball.style.transform = "skewY(45deg)";  
+        v_mvHeight = -v_mvHeight; // 부호만 체인지
+      }  
+  
+      //타이머 발생기
+       v_timerId = setTimeout(f_move,50); // 함수이름만 써준당(FP)
+      
+    }
+    //window size 변경 이벤트
+    window.addEventListener("resize",function(){
+        console.log(window.innerWidth); //변경값 확인
+        v_wndWidth = window.innerWidth;
+        v_wndHeight = window.innerHeight;
+    });
+
+    var f_keyDown = function(){
+        //왼쪽 키 눌렀을 때
+        if(event.keyCode == 37){
+
+        }
+        //오른쪽 키 눌렀을 때
+        if(event.keyCode == 39){
+
+        }
+
+        //alert(event.key); // 요게 조금 나중꺼
+    }
+    window.addEventListener("keydown",f_keyDown);
+
+   // alert(window.innerHeight); // 사용자가 보는 윈도우높이
+   // alert(window.innerWidth);   //사용자가 보는 윈도우넓이
+</script>    
+</body>
+</html>

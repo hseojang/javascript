@@ -13,6 +13,7 @@
     <input type="button" value="눌러방" id="id_btn">
 
     <script>
+        // jsonFlickrFeed({ 이런저런눈어지럼 });
 
         // 과제 : id_disp div에 table 형태로 뿌리기
         var v_btn = document.querySelector("#id_btn");
@@ -33,10 +34,10 @@
                     // for (var i in v_lines) { 로 for in문으로도 가능함(중괄호 안 내용은 달라지지 않음!)
                     // 배열의 경우 {0:"v_lines[0]", 1:"v_lines[1]" ... } 의 형식으로 반환되는 듯
                     // 이 때 var i는 0, 1(키=배열 인덱스)이 되고 v_lines[i]는 i에 딸린 값을 반환
-                    for (var i=0; i<v_lines.length; i++) {
+                    for (var i = 0; i < v_lines.length; i++) {
                         v_tblStr += "<tr>"
                         var v_elmt = v_lines[i].split(",");
-                        for (var j=0; j<v_elmt.length; j++) {
+                        for (var j = 0; j < v_elmt.length; j++) {
                             v_tblStr += "<td>" + v_elmt[j] + "</td>";
                         }
                         v_tblStr += "</tr>"

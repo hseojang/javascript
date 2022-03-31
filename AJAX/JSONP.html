@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+</head>
+
+<body>
+    껌새거<input type="text" id="id_sch" value=""><br>
+    <div id="id_disp"></div>
+    <script>
+        var v_pre = "https://www.flickr.com/services/feeds/photos_public.gne?tags=";
+        var v_post = "&format=json";
+        var v_sch = document.querySelector("#id_sch");
+
+        var f_addFlickr = function () {
+            var v_scriptSrc = v_pre + v_sch.value + v_post;
+            //script 태그 생성
+
+            // var v_script = document.querySelector("script");
+            // querySelector는 검색한 내용의 가장 첫번째 요소를 반환함
+            // "script"로 셀렉트하면 가장 첫번째 "script" 태그 요소를 반환하므로 의도한대로 작동하지 않을 수 있음
+            // 스크립트 내용이 브라우저에 렌더링된 요소에서 지워져도 원본 소스가 남아있어 작동함
+
+            var v_script = document.querySelector("#id_fl");
+            console.log(v_script);
+            if (v_script) {
+                v_rmScript = document.body.removeChild(v_script);
+                console.log("스크립트 지워짐" + v_rmScript);
+            }
+            v_script = document.createElement("script");
+            console.log("새로 생성됨 : " + v_script);
+            v_script.src = v_scriptSrc;
+            v_script.id = "id_fl";  // 다음번 쿼리셀렉터에도 유효하도록 아이디 생성
+            document.body.appendChild(v_script);
+
+        }
+
+        v_sch.addEventListener("keydown", function () {
+            if (event.keyCode == 13) {// 엔터키면
+                f_addFlickr();
+            }
+        });
+
+        //함수를 미리 만들어줌
+        //이렇게 데이타를 넘겨받는 것을 JSONP(JSON PADDING)라고 부름
+        var v_disp = document.querySelector("#id_disp");
+
+        // 플리커 링크로 불러오는 것 - 스크립트 라이브러리
+        // jsonFlickrFeed 함수를 선언하면서 불러온 소스의 jsonFlickrFeed({매개변수가 될 JSON 데이터})를 실행시킴
+        var jsonFlickrFeed = function (p_json) {
+            v_disp.innerHTML = "";
+            var v_items = p_json.items;
+            for (var i = 0; i < v_items.length; i++) {
+                //이미지태그 생성
+                var v_img = document.createElement("img");
+                //src에 경로 할당
+                v_img.src = v_items[i].media.m;
+                //v_disp에 붙여넣기
+                v_disp.appendChild(v_img);
+            }
+        }
+    </script>
+<script id="id_fl" src="https://www.flickr.com/services/feeds/photos_public.gne?tags=roze&format=json"></script>
+
+</body>
+
+</html>

@@ -11,6 +11,10 @@ $.ajax = function (p_json) { // ajax를 $의 요소로 만들어줌
                 p_json.success(JSON.parse(v_ajax.responseText));
                 return; // 끝내기, else인 경우를 실행시키지 않기 위함
             }
+            if (p_json.dataType == "xml") {
+                p_json.success(JSON.parse(v_ajax.responseXML));
+                return; // XML 데이터를 이용하려면 responseXML로 데이터를 받을 수 있다
+            }
             p_json.success(v_ajax.responseText); // success가 가리키는 함수를 v_ajax.responseText를 패러미터로 넣어 실행시키게 함
         }
     }

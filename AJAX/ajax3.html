@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-<!--첨으로 js 라이브러리도 맹글었어용 ㅋㅋㅋ 난 이제 중급이상-->
-<script src="./myajax.js"></script>
+    <script src="./myajax.js"></script>
 </head>
+
 <body>
-<div id="id_disp" style="border:1px solid black"></div>
-<input type="button" value="눌러방" id="id_btn">    
-<script>
+    <div id="id_disp" style="border:1px solid black"></div>
+    <input type="button" value="눌러방" id="id_btn">
+    <script>
 
-    //오늘의 넘 쉬운 과제
-    //가져온 내요을 id_disp DIV에 table형태로 뿌리시옹
-    var v_btn = document.querySelector("#id_btn");
-    v_btn.addEventListener("click",function(){
-        $.ajax({
-            method:"get",
-            url:"data.xml",
-            async:true,
-            dataType:"xml",
-            success:function(p_rslt){
-                //힌뚱
-                console.log(p_rslt);
-           }
+        // 오늘도 넘 쉬운 과제
+        // 가져온 xml 내용을 table형태로 뿌리시옹
+        // document.getElementsByTagName, querySelector
+        var v_btn = document.querySelector("#id_btn");
+        v_btn.addEventListener("click", function () {
+            $.ajax({
+                method: "get",
+                url: "data.xml",
+                async: true,
+                dataType: "xml",
+                success: function (p_rslt) {
+                    //힌뚱
+                    console.log(p_rslt);
+                }
+            })
+
         })
-
-    })
 //    alert("동기 확인!!");
-</script>
+    </script>
 </body>
+
 </html>

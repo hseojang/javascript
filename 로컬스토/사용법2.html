@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // localStorage 사용 약간 응용 (단순 key-value로 사용하기에는 뭔가 아쉬움)
+    // 객체 지향 DB에 유형한 MongoDB가 있음 (오라클은 관계형 DB)
+    // 테이블을 Collection이라 부르고 실제는 배열 타입을 사용
+    // 테이블의 Row를 Document라 부르고 실제는 JSON 타입을 사용
+
+    var v_tblName = "myTable";
+    var v_tblData = []; // 빈 배열
+    for (var i = 1; i <= 10; i++) {
+        var v_row = {}; // 빈 객체(row 데이터를 담을 객체)
+        v_row.name = "흥" + i;
+        v_row.age - i * 10;
+        v_row.comment = "별꼴이얌" + i;
+
+        if (i == 10) {
+            v_row.comment = { "com1": "칫칫", "com2": "뿌웅" };
+        } else {
+            v_row.comment = "별꼴이얌" + i;
+        }
+
+        //생성한 객체를 배열에 담아주깅
+        v_tblData.push(v_row);
+    }
+    //배열을 로컬스토리지에 저장(문제가 있음? 눈으로 확인)
+    //로컬스토리지에는 문자열만 저장가능한 제약사항이 있음
+    localStorage.setItem(v_tblName, JSON.stringify(v_tblData));
+
+</script>

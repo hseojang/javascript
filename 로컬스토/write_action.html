@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="./jsp.js"></script>
+<script>
+    
+    /*  encoding            decoding 세트
+    escape                unescape              아주 옛날 고래적 세트
+    encodeURI             decodeURI             조금 예전 세트
+    encodeURIComponent    decodeURIComponent    요즘 사용 세트
+    */
+   
+    // console.log(3<4<5);
+    // console.log(5>4>3);
+
+    var v_title = request.getParameter("nm_title");
+    var v_writer = request.getParameter("nm_writer");
+    var v_content = request.getParameter("nm_content");
+    var v_skills = request.getParameterValues("nm_skills");
+
+    // alert(v_title + v_writer + v_content);
+    alert(v_skills);
+
+</script>

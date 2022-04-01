@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>아주 볼품없는 게시판</h1>
+    <form action="write_action.html">
+        <!-- 폼 액션이 없으면 디폴트는 자기자신 -->
+        제목 : <input type="text" name="nm_title" value="ㅋㅋ" required><br>
+        글쓴이 : <input type="text" name="nm_writer" value="ㅎㅎ" required><br>
+        글쓴이 스킬 (3개까지만 선택해주세요)<br>
+        <hr>
+        <!-- 3개까지만 선택 가능하도록 제이쿼리를 사용하지 않고 만들어보기 3개 초과시 alert -->
+        JS<input type="checkbox" name="nm_skills" id="js" checked>
+        스프링<input type="checkbox" name="nm_skills" id="spring">
+        파이썬<input type="checkbox" name="nm_skills" id="python" checked>
+        오라클<input type="checkbox" name="nm_skills" id="oracle" checked>
+        <br>
+        <hr>
+        내용 : <br>
+        <textarea name="nm_content" rows="5" cols="40">내용입니다 믿어주세요</textarea><br>
+        <input type="submit" value="글쓰기">
+    </form>
+    <script>
+        var f_checkLimit = function () {
+            var v_checkBoxes = document.querySelectorAll('input[name="nm_skills"]');
+
+            var f_alert = function () {
+                var count = 0;
+                for (var i = 0; i < v_checkBoxes.length; i++) {
+                    if(v_checkBoxes[i].checked) {
+                        count += 1;
+                    }
+                }
+                if (count>3) {
+                    alert("선택항목은 3개를 초과할 수 없습니다.");
+                    event.target.checked = "";
+                    // console.log(event.target.checked);
+                }
+
+            }
+
+            for (var i = 0; i < v_checkBoxes.length; i++) {
+                // console.log(v_checkBoxes[i]);
+                v_checkBoxes[i].addEventListener("change", f_alert, false);
+            }
+        }
+
+        f_checkLimit();
+
+    </script>
+
+</body>
+
+</html>

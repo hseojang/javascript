@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    div {
+        display:none; /* none은 안보이고 공간도 안차지*/
+        /*visibility: hidden;/*안보이지만 공간은 차지 */
+    }
+</style>
+</head>
+<body>
+    <div id="id_blink"><h1>넌누구냥</h1></div>
+    <h1>난 류진이당</h1>
+<script>
+    var v_blink = document.querySelector("#id_blink");
+    var v_toggle = true; // 토글용 변수, flag 변수 
+    var f_blink = function(){
+        if(v_toggle){
+            v_blink.style.display = "block";
+            v_toggle = false;
+        }else {
+            v_blink.style.display = "none";
+            v_toggle = true;
+        }
+        setTimeout(f_blink,400);
+    }
+    f_blink(); // 함수 콜
+
+</script>    
+</body>
+</html>

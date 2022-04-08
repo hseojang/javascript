@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<h1>볼품없는 게시판 리스트 </h1>
+<div id="id_disp"></div> <!-- display용-->
+<a href="write.html">새글 쓰깅</a>
+<script>
+var v_disp = document.querySelector("#id_disp");
+var v_tblName="Gesi";  //key값 고정
+var v_guls = JSON.parse(localStorage.getItem(v_tblName));
+var v_tblStr = "<table border=1>";
+v_tblStr += "<tr><th>순번</th><th>제목</th><th>글쓴이</th><th>능력들</th></tr>";
+for(var i=0; i<v_guls.length; i++){
+    v_tblStr +="<tr>";
+    v_tblStr += "<td>" + (i+1) + "</td>";
+    v_tblStr += "<td><a href='http://naver.com' onclick='f_open("+ v_guls[i].pid +")'>" + v_guls[i].title + "</a></td>";
+    v_tblStr += "<td>" + v_guls[i].writer + "</td>";
+    v_tblStr += "<td>" + v_guls[i].skills + "</td>";
+    v_tblStr += "</tr>";    
+}
+v_tblStr += "</table>";
+v_disp.innerHTML = v_tblStr;
+
+var f_open = function(p_pid){
+    event.preventDefault(); // 기본 장착된 기능 막깅
+   // event.stopPropagation();  // 이벤트전파(버블링) 막깅
+    window.open("detail.html?gulid="+p_pid, "detail", "width=500, height=600, left=100, top=100")
+}
+</script>   
+</body>
+</html>

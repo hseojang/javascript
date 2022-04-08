@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>하트맹글기</title>
+    <style>
+        #myHeart {
+            border: 5px solid pink;
+            position: relative;
+            /* static은 요소의 배치를 브라우저에 위임한다. 위치 변경할 수 없음*/
+            /* 부모 relative - 자식 absolute인 상황 => 부모의 왼쪽위(시작좌표)를 기준으로 위치를 움직임*/
+            left:80px;
+            top:100px;
+            width:100px;
+            height: 100px;
+            overflow: hidden; /* 영역을 벗어난 자식 요소 숨기기 */
+            transform-origin: right top; /* 회전 시키기 전 기본 상태를 기준으로 오른쪽 위를 회전중심으로 변경 */
+            /* transform-origin = 회전의 중심을 변경 - 기본값은 요소 중심(center center)*/
+            transform: rotate(45deg);
+            /* = rotateZ(45deg) */
+        }
+
+        .right {
+            position: absolute;
+            left:50px;
+            width:100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%; /*모서리 둥글게*/
+        }
+        .bottom {
+            position: absolute;
+            top:50px;
+            width:100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%; /*모서리 둥글게*/
+        }
+    </style>
+</head>
+
+<body>
+    <input id="id_move" type="button" value="이동">
+    <input id="id_copy" type="button" value="뽁사행">
+    <div id="id_disp" style="border:1px solid blue">
+        여기요 요기요
+    </div>
+    <div id="myHeart">
+        <div class="right"></div>
+        <div class="bottom"></div>
+    </div>
+    <script>
+        /* 규모가 큰 프로젝트에선 전역변수 리스트를 별도의 namespace로 묶어 아래처럼 과ㅓㄴ리함
+        var global = {}
+        global.v_move = document.querySelector("#id_move")
+        // 전역변수를 객체로 묶어 관리하기
+        */
+        var v_move = document.querySelector("#id_move");
+        var v_copy = document.querySelector("#id_copy");
+        var v_disp = document.querySelector("#id_disp");
+        
+        var v_heart = document.querySelector("#myHeart");
+
+        var v_gak = 0;
+        var f_rotate = function() {
+            v_gak = (v_gak+10) % 360;
+            v_heart.style.transform = "rotate(" + v_gak + "deg)";
+            setTimeout(f_rotate, 500); // 0.5초마다 재귀호출
+        }
+
+        f_rotate(); // 함수 실행
+
+        var f_copy = function() {
+            // var v_clone = v_heart.cloneNode(); // node복사 - 껍데기만
+            var v_clone = v_heart.cloneNode(!0); // 깊은 복사
+            v_clone.style.display = "inline-block";
+            v_clone.style["position"] = "static"; // 배열식 접근
+            v_disp.appendChild(v_clone); // 복사한 것 v_disp에 넣기
+        }
+
+        var f_move = function() {
+            // 이미 화면 상에 존재하는 객체를 다른 곳에 붙여넣으면 이동하는 것처럼 보임
+            v_disp.appendChild(v_heart); // 개발툴에서 확인하면 이동해 있음
+        }
+
+        v_move.addEventListener("click", f_move);
+        v_copy.addEventListener("click", f_copy);
+
+        /*
+        for(var i=1; i<=30; i++) { // 스크롤이 생기도록 화면을 늘리는 더미 텍스트
+            document.write("<h1>날씨가 넘 좋아용</h1>");
+        }
+        */
+
+        v_heart.style.left = "300px"
+
+
+    </script>
+</body>
+
+</html>

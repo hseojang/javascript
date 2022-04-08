@@ -2,22 +2,36 @@
 <meta charset="UTF-8">
 <script src="./jsp.js"></script>
 <script>
-    
-    /*  encoding            decoding 세트
-    escape                unescape              아주 옛날 고래적 세트
-    encodeURI             decodeURI             조금 예전 세트
-    encodeURIComponent    decodeURIComponent    요즘 사용 세트
-    */
-   
-    // console.log(3<4<5);
-    // console.log(5>4>3);
+  var v_title = request.getParameter("nm_title");
+  var v_writer = request.getParameter("nm_writer");
+  var v_content = request.getParameter("nm_content");
+  var v_skills = request.getParameterValues("nm_skills");
+  //값을 잘 받아 왔으면 LocalStorage에 저장합시다
 
-    var v_title = request.getParameter("nm_title");
-    var v_writer = request.getParameter("nm_writer");
-    var v_content = request.getParameter("nm_content");
-    var v_skills = request.getParameterValues("nm_skills");
+  var v_tblName="Gesi";  // 일단 테이블명(key값)은  Gesi로 고정
+  // 따로 따로 저장하지 않고 1개의 객체로 묶기
+  var v_gul = {};
+  v_gul.pid = 1;  // 데이타베이스의 Primary-key 역할
+  v_gul.title = v_title;
+  v_gul.writer = v_writer;
+  v_gul.content = v_content;
+  v_gul.skills = v_skills;
 
-    // alert(v_title + v_writer + v_content);
-    alert(v_skills);
+  //덮어써지는 문제 발생~~ ㅠㅠ  졸려죽겠는데 왜이래~~ㅠㅠ
+  //첨 저장하는 글이냐, 이미 써진 글이 있느냐의 분리가 필요
+  var v_gulDatas = []; //  v_gul을 담을 빈 배열 선언
+  if(localStorage.getItem(v_tblName)){ // 이미 글이 들어 있다면 일단 꺼내기
+     v_gulDatas = JSON.parse(localStorage.getItem(v_tblName));
+     v_gul.pid = v_gulDatas[v_gulDatas.length-1].pid + 1; //고유키값 증가
+  }
+  v_gulDatas.push(v_gul);
+  
+  // 1개로 묶었으니 해당 객체를 저장하면 됨
+  // localstorage는 문자열 저장기능만 지원(객체는 단순 Object라는 문자열로 저장됨)
+  localStorage.setItem(v_tblName,JSON.stringify(v_gulDatas));
 
+  alert("괜히 메세지 1개당 잘 저장되었슴당!");
+  // 잘 저장 되었으면 리스트로 감당
+  location.href="list.html"; // 서버에 다시 요청 안하고 캐쉬된 페이지를 사용할 수도 있음
+  //location.replace("list.html"); // 서버에 필히 다시 요청
 </script>

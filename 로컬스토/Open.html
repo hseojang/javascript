@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input id="id_btn" type="button" value="누르셩">
+<script>
+    var v_btn = document.querySelector("#id_btn");
+    var f_click = function(){
+        //새창 열기
+        // modal 창을 div로 맹글어서도 많이 사용 왜냐면 사용자가 pop-up창을 막는 경우가 있어서...
+        window.open("list.html","song","width=200,height=400,left=-150,top=-150");
+    }
+    v_btn.onclick = f_click;
+</script>
+</body>
+</html>

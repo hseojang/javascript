@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./jsp.js"></script>
+</head>
+<body>
+    <h1>아주 볼품없는 게시판</h1>
+    <form action="update_action.html">
+        <!-- 사용자에게 보여줄 필요는 없지만 프로그램적으로 필요한 값은 hidden으로 전송 -->
+        <input type="hidden" id="id_gulid" name="nm_gulid" value="">
+        제목 : <input type="text" name="nm_title" value="" readonly><br>
+        글쓰니 : <input type="text" name="nm_writer" value="" readonly><br>
+        글쓰니 스킬<br>
+        <hr>
+        JS<input type="checkbox" name="nm_skills" value="js">
+        스프링<input type="checkbox" name="nm_skills" value="spring">
+        파이썬<input type="checkbox" name="nm_skills" value="python">
+        오라클<input type="checkbox" name="nm_skills" value="oracle"><br>
+        <hr>
+        내용<br> 
+        <textarea name="nm_content" rows="5" cols="40"></textarea><br>
+        <input type="submit" value="쑤정">
+    </form>
+<script>
+    var v_title = document.querySelector("input[name=nm_title]");
+    var v_writer = document.querySelector("input[name=nm_writer]");
+    var v_content = document.querySelector("textarea");
+    var v_skills = document.querySelectorAll("input[name=nm_skills"); // tag와 속성을 같이 검색하는 선택자
+
+    var v_hidden = document.querySelector("#id_gulid");
+    var v_tblName = "Gesi";
+    var v_pid = request.getParameter("gulid");
+    var v_datas = JSON.parse(localStorage.getItem(v_tblName));
+
+    v_hidden.value = v_pid; // 불러온 글의 id값을 hidden에 세팅
+
+    // pid 값이 같은 걸 검색해서 찾아내야 하니까
+    for (var i=0; i<v_datas.length; i++)  {
+        if(v_datas[i].pid == v_pid) { // 넘어온 id에 해당하는 글 찾았을 대
+            v_title.value = v_datas[i].title;
+            v_writer.value = v_datas[i].writer;
+            v_content.value = v_datas[i].content;
+        }
+    }
+
+
+</script>
+</body>
+</html>

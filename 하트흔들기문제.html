@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>하트맹글기</title>
+    <style>
+        #container {
+            position: relative;
+            top: 200px;
+            left: 300px;
+            width:100px;
+            height:100px;
+            transform-origin: top center;
+        }
+
+
+        #point {
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            position: absolute;
+            left: 140px;
+            top: 200px;
+        }
+
+        #myHeart {
+            /*border: 5px solid pink;*/
+            position: absolute;
+            /* static relative absolute fixed */
+            left: 0px;
+            top: 170px;
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            /* 내 영역을 벗어난 자식 숨기깅 */
+            transform-origin: center center;
+            /* 회전의 중심을 설정*/
+            transform: rotate(45deg);
+            /* 하트가 누웠으니 세워주시옹 */
+        }
+
+        .right {
+            position: absolute;
+            left: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            /* 모서리 둥글게 둥글겡*/
+        }
+
+        .bottom {
+            position: absolute;
+            top: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            /* 모서리 둥글게 둥글겡*/
+        }
+
+        #bar {
+            position: absolute;
+            width: 20px;
+            height: 200px;
+            top: 25px;
+            left: 40px;
+            background-color: rgb(138, 130, 122);
+        }
+
+        #point {
+            position: absolute;
+            top: 0px;
+            left: 35px;
+            width: 30px;
+            height: 30px;
+
+            background-color: rgb(125, 171, 255);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="bar"></div>
+        <div id="point"></div>
+        <div id="myHeart">
+            <div class="right"></div>
+            <div class="bottom"></div>
+        </div>
+
+    </div>
+    <script>
+        var v_heart = document.querySelector("#myHeart");
+        var v_bar = document.querySelector("#bar");
+        var v_point = document.querySelector("#point");
+        var v_container = document.querySelector("#container");
+
+        var v_gak = 0;
+        v_amount = 10
+        var f_rotate = function() {
+            v_gak = (v_gak+v_amount) % 360;
+            v_container.style.transform = "rotate(" + v_gak + "deg)";
+            setTimeout(f_rotate, 500); // 0.5초마다 재귀호출
+            if (v_gak >= 45 || v_gak <= -45) {
+                v_amount = - v_amount;
+            }
+
+        }
+        
+        f_rotate();
+
+    </script>
+</body>
+
+</html>

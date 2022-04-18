@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script> 
+</head>
+<body>
+    <input type="button" value="값너을려" id="id_in">
+    <!--부모 element기준으로 사이즈가 자동 조절 되므로 div로 감싸준당-->
+    <div style="width:300px;height:300px;border:5px solid black">
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+<script>
+var v_btn = document.querySelector("#id_in");
+var f_data = function(p_set){
+    var v_anotherData = {};
+    v_anotherData.label = p_set.lbl;
+    v_anotherData.data = p_set.dta;
+    v_anotherData.backgroundColor = p_set.bClrs;
+    v_anotherData.borderColor = p_set.borClrs;
+    v_anotherData.borderWidth = p_set.borW;
+    return v_anotherData; // closure라고 부름
+}
+
+var f_ranData = function(p_cnt){
+    var v_data = []; //빈 배열
+    for(var i=0; i<p_cnt; i++){
+        v_data.push(Math.ceil(Math.random()*100));
+    }
+    return v_data;
+}
+var f_ranColors = function(p_cnt){
+    var v_colorData = [];
+    for(var i=0; i<p_cnt; i++){
+        var v_str = "rgb(";
+        v_str += Math.floor(Math.random()*256) + ",";
+        v_str += Math.floor(Math.random()*256) + ",";
+        v_str += Math.floor(Math.random()*256) + ")";
+        v_colorData.push(v_str);
+        //alert(v_colorData); // 디버깅용, 누느로 화긴
+    }
+    return v_colorData;
+}
+
+var f_click = function(){
+
+    var v_ranData =[];
+    for(var i=1; i<=6; i++){
+        v_ranData.push(Math.ceil(Math.random()*45));
+    }
+    
+    myChart.data.datasets[0].label="현준만세" + i;
+    //myChart.type="line"; 요건 짜증나 안됨(설명도 잘 없음)
+    myChart.data.datasets[0].type="line";
+    myChart.data.datasets[0].data = v_ranData;
+    console.log(myChart.data.datasets[0].data);
+    //다시 그리깅(rendering)  ssr vs csr
+    //myChart.data.datasets.push(v_anotherData);
+    myChart.data.datasets[1]= f_data({
+        lbl:"응 난 라벨이얌 넌 뭐얌",
+        dta:f_ranData(7),
+        bClrs:f_ranColors(7),
+        borClrs:f_ranColors(7),
+        borW: Math.ceil(Math.random()*10)
+    });
+    myChart.update(); // 요거 한개 잘 기억
+    setTimeout(f_click,400); // 그냥 재미로 재귀호출
+}
+v_btn.addEventListener("click",f_click);
+
+//그래픽엔진사용, DirectX, (OpenGL-> WEBGL)
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'line',/*bar, line,pie,doughnut,radar등  */
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','흥'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3,9],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+//data 속성에 접근
+console.log(myChart.data.datasets[0].data);
+</script>
+</body>
+</html>

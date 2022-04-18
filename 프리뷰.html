@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #id_disp {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="id_disp"></div>
+    <input type="file" multiple name="nm_file" id="id_file">
+    <script>
+
+        var v_disp = document.querySelector("#id_disp");
+        var v_fileBtn = document.querySelector("#id_file");
+
+        var v_fileBtn = document.querySelector("#id_file");
+        // 보통 파일 입력의 경우 change 이벤트를 주로 걸어 사용(쌤 : 실제 다른 이벤트를 거는걸 본적이 없다고 함)
+
+        function f_file(p_file) {
+            var v_fileReader = new FileReader();
+
+            v_fileReader.onload = function () {
+
+                v_img = document.createElement("img");
+                v_img.src = v_fileReader.result;
+                v_img.width = 200;
+                v_img.setAttribute("height", 200);
+                // v_disp.innerHTML = "";  // 비우깅
+                v_disp.appendChild(v_img);
+                console.log(v_fileReader.result);
+            }
+            v_fileReader.readAsDataURL(p_file);
+
+        }
+
+        var f_change = function () {
+            // input type="file"의 가장 중요한 속성 files
+            // multiple 속성을 부여하면 여러개 선택 가능
+            console.log(v_fileBtn.files);
+            /*
+                        var v_file = v_fileBtn.files[0];  //파일리스트 안 파일객체 뽑낑
+                        var v_fileReader = new FileReader(); // 파일 읽어주는 아저씨 생성
+                        //다 읽으면 onload 이벤트 발생(비동기)
+                        v_fileReader.onload = function () {
+                            // console.log("흥");
+                            var v_img = document.createElement("img");
+                            v_img.src = v_fileReader.result;
+                            v_img.width = 200;
+                            v_img.setAttribute("height", 200);
+                            v_disp.innerHTML = "";  // 비우깅
+                            v_disp.appendChild(v_img);
+            
+                            console.log(v_fileReader.result);
+                        }
+                        //v_fileReader.readAsText 텍스트 파일 읽을때 쓰는거
+                        v_fileReader.readAsDataURL(v_file); //웹기준 binary데이타
+                        // console.log("치") // 흥보다 먼저 찍힘, 비동기! = 논블록킹
+                        // io 처리는 대부분 비동기이다...
+            
+            */
+            // 여러개 파일을 뽑을 때 : 
+            // 코드의 비동기로 인한 문제는 해당 코드를 함수로 분리해 준다
+            // 함수는 기본적으로 동기로 작동하므로 비동기 함수를 래핑해주는 개념
+            var v_img = "";
+            var v_fileList = v_fileBtn.files
+            for (i = 0; i < v_fileList.length; i++) {
+                f_file(v_fileList[i]);
+                /* var v_file = v_fileList[i];
+                console.log(v_file)
+                var v_fileReader = new FileReader();
+               
+                v_fileReader.onload = function () {
+               
+                v_img = document.createElement("img");
+                v_img.src = v_fileReader.result;
+                v_img.width = 200;
+                v_img.setAttribute("height", 200);
+                // v_disp.innerHTML = "";  // 비우깅
+                v_disp.appendChild(v_img);
+                console.log(v_fileReader.result);
+                }
+               
+                v_fileReader.readAsDataURL(v_file);
+                // 단일 파일을 읽을 때 처럼 for문으로 구성하면 마지막 파일만 출력된다
+                // 파일리더가 비동기이기 때문에 파일을 다 읽기 전에 for문이 데이터를 받지 못한채로 진행됨
+                */
+            }
+        }
+        v_fileBtn.addEventListener("change", f_change)
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #id_disp {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="id_disp">
+        요기에 파일을 끄러다 놓아봐
+    </div>
+
+    <script>
+        // 드래그해서 파일 업로드하는 예제
+
+        var v_disp = document.querySelector("#id_disp");
+
+        var f_file = function (p_file, p_length) {
+            var v_fileReader = new FileReader();
+            v_fileReader.onload = function () {
+                var v_img = document.createElement("img");
+                v_img.src = v_fileReader.result;
+                v_img.width = 50;
+                v_img.height = 50;
+                v_disp.appendChild(v_img);
+            }
+            v_fileReader.readAsDataURL(p_file);
+        }
+
+        var f_dragOver = function () {
+            event.preventDefault(); // 브라우저에서 기본으로 제공하는 이미지 드래그드랍기능 막기
+            event.stopPropagation(); // DOM 구조에 의해 예상치 않은 결과가 발생 가능, 상위 요소로부터의 이벤트 버블링 막기
+        }
+
+        var f_drop = function () {
+            event.preventDefault();
+            event.stopPropagation();
+            // dataTransfer는 자동완성이 안되니 잘 검색으로...
+            console.log(event.dataTransfer.files);
+            v_disp.innerHTML = ""; // 문자열 지우기
+            var v_files = event.dataTransfer.files;
+            for (var i = 0; i < v_files.length; i++) {
+                f_file(v_files[i], v_files.length);
+            }
+
+        }
+
+        v_disp.addEventListener("dragover", f_dragOver);
+        v_disp.addEventListener("drop", f_drop);
+
+        window.addEventListener("dragover", f_dragOver); // v_disp 외의 영역에서도 막아지도록 최상위 요소 window에도 이벤트리스너 부여
+        window.addEventListener("drop", f_dragOver); // 파일이 첨부될 함수는 f_drop이므로 이벤트 막는 용도로는 f_dragOver 설정
+
+    </script>
+</body>
+
+</html>

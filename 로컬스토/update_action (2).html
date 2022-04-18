@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="./jsp.js"></script>
+<script>
+  var v_tblName="Gesi";  // 일단 테이블명(key값)은  Gesi로 고정   
+    //수정할 글  id와 덮어쓸 내용 가져옴
+  var v_gulid = request.getParameter("nm_gulid");
+  var v_content = request.getParameter("nm_content");
+  var v_skills = request.getParameterValues("nm_skills");
+ 
+  var v_gulDatas = JSON.parse(localStorage.getItem(v_tblName));
+  for(var i=0; i<v_gulDatas.length; i++){
+      if(v_gulDatas[i].pid == v_gulid){
+        v_gulDatas[i].title = "타이틀바꿩";
+        v_gulDatas[i].content = v_content; // 덮어쓰깅
+        v_gulDatas[i].skills = v_skills;   // 덮어쓰깅
+      }
+  }
+  //읽어온 배열에서 해당 내용을 변경했으면 배열을 다시 LocalStorage에 저장
+  localStorage.setItem(v_tblName,JSON.stringify(v_gulDatas));
+
+  alert("잘 수정 되었을 걸용");
+  
+  //날 열어준 창(열어준 놈이라 해서 opener라 함)
+  opener.location.replace("list.html");
+  window.close(); //  자신은 닫힘
+</script>

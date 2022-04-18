@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    #id_clock {
+        text-align: right;
+        color:yellow;
+        font-size: 2em;
+        background-color: black;
+    }
+</style>
+</head>
+<body>
+    <div id="id_clock">오후 5:20:11</div> 
+<script>
+    // 서버시간을 반영한 시계 띄우기
+
+    // 힌트 Date 사용
+    // 클라이언트에서 그냥 Date 객체를 생성해서 사용하는 건 큰 의미가 없음
+    // => 공통된 시간이 아님
+    // var v_today = new Date(); // 현재 날짜시간 읽어옴(자바것 가져옴)
+    // 지원 메소드는 구글 껌색
+
+    // 서버 시간을 읽어와서 강제 세팅(서버시간으로 통일)
+    var v_today = new Date("2022-02-28");
+    alert(v_today.toLocaleString());
+
+    // 알아둬야 하는 거
+    v_today.setDate(31);
+    alert(v_today.toLocaleString()); // 3/3일이 뜸
+    // 2022-02-31 = 2022-02-(28+3) = 2022-03-03
+    // 초과되는 날짜가 자동으로 계산된다
+
+    // alert(v_today.getMonth()); // 결과 : 2
+    alert(v_today.getMonth()+1); // 주의! getMonth()는 -1된 값이 나옴 따라서 +1을 해야 원하는 값을 가져올 수 있다
+
+    v_today.setDate(v_today.getDate()+5); // v_today로부터 5일 뒤의 날짜를 계산하려고 할 때
+    // 단, Day는 요일을 나타낸다
+    
+
+</script>   
+</body>
+</html>

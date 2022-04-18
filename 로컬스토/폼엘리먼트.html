@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div id="id_disp"></div> <!-- element-->
+<!-- forms[index].elements 는 form태그안에 사용자 입력관련 태그만 가져옴-->
+<form>
+    <div>난 div 안에 있지용 </div>
+    입력1 <input type="text" name="nm_arg1" value="메렁1"><br>
+    입력2 <input type="text" name="nm_arg2" value="메렁2"><br>
+    입력3 <input type="text" name="nm_arg3" value="메렁3"><br>
+    입력4 <input type="text" name="nm_arg4" value="메렁4"><br>
+    입력5 <textarea name="nm_tx">난내용이예용</textarea>
+</form> 
+<input type="button"  value="꿔리문자열맹글기" onclick="f_qString()">
+<script>
+    //  forms와 elements 잘 알면 나중에 유용하니 잘 알아둡시당(존재)
+    //  opener와  var 변수명=window.open()  
+    var f_qString = function (){
+        var v_elements = document.forms[0].elements;
+        var v_query="";
+        for(var i=0; i<v_elements.length; i++){
+            console.log(v_elements[i]); // div가 안 찍히는 거 확인
+            v_query += v_elements[i].name + "=" + v_elements[i].value;
+            v_query += "&";
+        }
+        alert(v_query); 
+    }
+</script>   
+</body>
+</html>

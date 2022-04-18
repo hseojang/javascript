@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+  //  var v_arr = [1,4,2,3,7,11]; // 대략 이런 게 있어용
+    var v_arr = [
+        {pid:1,name:"로제"},
+        {pid:4,name:"지수"},
+        {pid:3,name:"리사"},
+        {pid:2,name:"제니"}
+    ]
+    v_arr.sort(function(a,b){
+        console.log(a,b);
+        return a.pid - b.pid;
+    });
+    console.log(v_arr);
+</script>    
+</body>
+</html>

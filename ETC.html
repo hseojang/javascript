@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
+<style>
+    #id_disp {
+        width:200px;
+        height:200px;
+        border:1px solid black;
+    }
+</style>
+</head>
+<body>
+순서1<input id="id_txt" tabindex="2" type="text" value=""><br>
+순서2<input id="id_txt1" tabindex="1" autofocus type="text" value=""><br>
+순서3<input id="id_txt2" tabindex="-1" type="text" value="ddd"><br>
+순서4<input id="id_txt3" tabindex="5" type="text" value=""><br>
+순서5<input id="id_txt4" tabindex="4" type="text" value=""><br>
+순서6<input id="id_txt5" tabindex="6" type="text" value=""><br>
+<!--focus 못 받는 아이들에게 focus를 너무나 주고 싶을 때-->
+<div  contenteditable id="id_disp" tabindex="0">여기 키보드 클릭</div>
+<a href="#" onclick="f_click()">누르숑</a>
+<input type="button" value="눌러방방" id="id_btn">
+<script>
+    //DomContentLoaded 이벤트 발생시 실행
+    
+    //전역함수, 전역변수, 별거 아닌거 같지만
+    //정리 안하면, 토 나옴 -> 평가도 낮을 수 밖에
+    $(function(){
+        //초기화 블럭
+        function f_click(){
+            alert("나 눌렀니?")
+    }
+    
+        document.querySelector("#id_btn")
+                .addEventListener("click",f_click);
+    })
+
+    /*
+    //태그해석이 끝나면 발생
+    window.addEventListener("DOMContentLoaded", function(){
+        alert("우왕 금요일이당1");  // 굳
+    })
+    
+    //태그해석과 이미지로딩이 끝나면 발생
+    window.addEventListener("load", function(){
+        alert("우왕 금요일이당2");  // 굳
+    })
+    */
+
+    /*
+    // -1은 포커스 안주깅, 1번부터는 순서, 0은 포커스 못받는거 받게 해주깅
+   // document.querySelector("#id_txt1").focus();//커서주깅
+    var v_txt = document.querySelector("#id_txt");
+    var v_disp = document.querySelector("#id_disp");
+    var f_down=function(){
+       // alert(event.keyCode);
+    }
+    v_txt.addEventListener("keydown",f_down);
+    v_disp.addEventListener("keydown",f_down);
+    */
+</script>   
+</body>
+</html>

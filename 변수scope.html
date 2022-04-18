@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    //js 변수 Scope(범위 Life Cycle)
+    //es5버젼과 es6버젼(2015년12월경일듯) IE11
+    // var      let const
+    // var는 전역과 지역(function) scope만 있음
+    // var는 function키워드 안에 있는가? 밖에 있는가만 구분하면 됨
+    var v_aa = "더울땐 찬길"; // 전역변수
+    var f_local = function(){
+        for(;"나참";){// 여기 있는 {과 변수 범위는 관계없음
+            var v_aa = "찬길 걸을땐 시원" // 지역변수
+            break;
+        }
+        alert(v_aa);
+    }
+    alert(v_aa);
+    f_local();
+
+</script>

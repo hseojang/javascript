@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>~모바일에서 많이 쓰는 손가락 무한스크롤~</title>
+</head>
+
+<body>
+    <div id="id_disp">
+        <script>
+            // 일단 스크롤 바가 있어야 하므로 더미데이터 삽입
+            for (var i = 1; i <= 30; i++) {
+                document.write("<h2>희수와 희정인 헷갈려용" + i + "</h2>");
+            }
+        </script>
+    </div>
+    <script>
+        // 스크롤바 이동하는 메서드 : window.scrollTo(x,y);
+        setTimeout(function () {
+            window.scrollTo(0, 0) // 스크롤을 맨 위로 초기화시키기, but 크롬에서 바로 이동하지 않는 버그 있음...
+        }, 50);
+
+        var v_disp = document.querySelector("#id_disp")
+        // 스크롤바가 생기면 스크롤 이벤트를 사용할 수 있음
+        var f_scroll = function () {
+
+            var v_scrollTop = Math.ceil(document.documentElement.scrollTop);
+            // 소수점 값이 parseInt 등으로 절삭되면 조건에 약간 모자라 if 블록이 발동X
+            // 따라서  Math.ceil 사용
+            var v_clientHeight = document.documentElement.clientHeight
+            var v_scrollHeight = document.documentElement.scrollHeight
+
+            if ((v_scrollTop + v_clientHeight) >= (v_scrollHeight - 100)) {
+                // 실제로 스크롤바가 끝까지 내려올 때를 기준으로 하면 로딩이 스크롤 끝에서 시작되므로
+                // 사용자가 느끼기에 약간 느림,실무에서는 스크롤이 끝나기 전 여유를 두고 잡음(완충완충 ㅋㅋ)
+
+                // 스크롤이 끝났으므로 더 볼 수 있도록 내용을 추가해줌
+                // 최종적으로 이부분에 AJAX를 이용해 서버에서 데이터를 받아와 추가해 주는 식으로 사용하면 됨
+                for (var i = 1; i <= 10; i++) {
+                    v_disp.innerHTML += ("<h1> 정진이 정진하고 있남" + i + "</h1>");
+                    // 문서 렌더링이 끝난 후에 document.write를 사용하면 문서가 전부 지워지고 새로 작성됨
+                    // 따라서 div의 innerHTML에 내용을 추가해줌
+                }
+            }
+
+            // document.scrollTop => 실시간으로 정보 반영이 되지 않음
+            // 따라서 실시간으로 변화하는 값이 필요할 때에는document.documentElement 밑의 요소를 이용한다
+            // (주로 무한스크롤 구현시 사용)
+            console.log("top", document.documentElement.scrollTop); // 문서 기준 스크롤바 상단 좌표
+            console.log("view높이", document.documentElement.clientHeight); // 클라이언트 창의 크기
+            console.log("문서높이", document.documentElement.scrollHeight); // 문서 전체의 크기
+            console.log("==========================================")
+            // 따라서 스크롤바의 상단 좌표=문서 시작부터 스크롤바가 지나온 길이
+            // scrollTop + clientHeight = scrollHeight 일 때는 문서 끝까지 전부 스크롤 했을 때이다
+        }
+        window.addEventListener("scroll", f_scroll);
+
+    </script>
+</body>
+
+</html>

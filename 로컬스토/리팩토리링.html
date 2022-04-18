@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    //로또로 리팩토링 이해하깅... 리팩토링은 습관이 정말 중요
+    //모아서 하지 말고, 틈틈히... , 나중에 큰 재산(울궈먹다)이 됨
+
+    // 랜덤 숫자를 발생시킨다면 몇번만에 6개의 다른 숫자를 발생시킬 지
+    // 알쑤 없디유
+
+    //배열과 숫자를 넘겨받아서 해당 숫자가 배열에 있는지 확인 함수
+    var  repeatCheck=function(p_arr, p_num){
+        for(var i=0; i< p_arr.length; i++){
+            if(p_arr[i] == p_num) {
+                return true;  // 찾았당
+            }
+        }
+        return false;  // 못 찾겠당 꾀꼬링
+    } 
+
+    var v_lotto = []; // 번호 6개 담을 빈 배열
+    while("이거슨 무한 루핑"){
+
+        //요런 걸 리팩토링이라고 부르는데 말만 멋지지 결론은 정리하란 이야기
+        var v_ranNum = Math.ceil(Math.random()*45); // 1-45;
+        if(!repeatCheck(v_lotto,v_ranNum)){
+            v_lotto.push(v_ranNum);
+        }
+
+        //중복 체킁 --> 개념적으로 중요한 부분
+        /*
+        var v_isIn = false;  // 없다고 가정, 초보자는 이런 변수를 어려워함 자꾸 연습
+        for(var i=0; i< v_lotto.length; i++){
+            if(v_lotto[i] == v_ranNum){
+                v_isIn = true; // 바보 가정이 틀렸어 , 증명 완료
+                break;
+            }
+        }
+
+        //가설의 증명 확인
+        if(!v_isIn){   // 같은 게 없을 때만
+            v_lotto.push(v_ranNum);
+        }
+        */
+
+        if(v_lotto.length == 6){
+            alert("끄읕" + v_lotto);
+            break;
+        }
+    }
+</script>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<script>
+    //화살표 함수(일부 제약사항이 있음)
+    //제약사항이 발생하는 경우는 힘들게 해결하려 하지말고 
+    //그냥 function키워드 붙여쓰면 됨
+/*
+    var f_func = function() {
+        alert("메렁");
+    }
+
+    var v_func = () => {
+        alert("메렁");
+    }
+
+    var v_func = p_arg => { // 매개변수가 하나일 땐 괄호를 생략할 수 있다
+        alert(p_arg);
+    }
+*/
+
+/*
+    function 키워드를 빼고 =>가 추가됨
+    ()매개변수가 1개인 경우는 ()도 생략가능
+    {}안에 return문만 있는 경우는 return 과 {} 모두 생략가능
+    위의 모든 규칙이 맘에 안들면 ()와 {} 모두 사용해도 무방
+
+    시간이 걸리겠지만 조금씩 function 키워드를 없애가는 노력을...
+*/
+
+    var v_func = p_arg => p_arg+9 // return도 생략 가능
+/*
+    var v_func = function(p_arg) {
+        return p_arg;
+    }
+
+*/
+    
+    alert(v_func("FBI"));
+
+
+</script>

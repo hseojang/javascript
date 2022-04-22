@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .container {
+            position: relative;
+        }
+
+        .slideBox {
+            position: absolute;
+            top: 100px;
+            left: 60px;
+            width: 200px;
+            height: 300px;
+            border: 1px ridge lightgray;
+        }
+
+        .btnBox {
+            position: absolute;
+            top: 50px;
+            left: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contanier" id="id_con">
+        <div class="slideBox" id="id_sb1" style="background-color: rgb(231, 126, 149);">1</div>
+        <div class="slideBox" id="id_sb2" style="background-color: rgb(235, 224, 132);">2</div>
+        <div class="slideBox" id="id_sb3" style="background-color: rgb(152, 226, 145);">3</div>
+        <div class="slideBox" id="id_sb4" style="background-color: rgb(123, 171, 226);">4</div>
+        <div class="slideBox" id="id_sb5" style="background-color: rgb(187, 145, 226);">5</div>
+    </div>
+    <div class="btnBox">
+        <button class="btn" id="id_prevBtn">prev</button>
+        <button class="btn" id="id_nextBtn">next</button>
+    </div>
+
+    <script>
+        const c_nextBtn = document.querySelector("#id_nextBtn");
+        const c_prevBtn = document.querySelector("#id_prevBtn");
+        const c_slideBoxes = document.querySelectorAll(".slideBox");
+
+        const f_initZIdx = ()=>{
+            for (let i=0; i < c_slideBoxes.length; i++) {
+                c_slideBoxes[i].style.zIndex = c_slideBoxes.length-i-1;
+            }
+        }
+
+        const f_next = ()=>{
+            for (let i=0; i < c_slideBoxes.length; i++) {
+                let index = parseInt(c_slideBoxes[i].style.zIndex);
+                c_slideBoxes[i].style.zIndex = index+1;
+                if(index==c_slideBoxes.length-1) {
+                    c_slideBoxes[i].style.zIndex = 0; 
+                }
+            }
+        }
+        const f_prev = ()=>{
+            for (let i=0; i < c_slideBoxes.length; i++) {
+                let index = parseInt(c_slideBoxes[i].style.zIndex);
+                c_slideBoxes[i].style.zIndex = index-1;
+                if(c_slideBoxes[i].style.zIndex<0) {
+                    c_slideBoxes[i].style.zIndex = c_slideBoxes.length-1; 
+                }
+            }
+        }
+        f_initZIdx();
+        c_nextBtn.addEventListener("click", f_next);
+        c_prevBtn.addEventListener("click", f_prev);
+
+    </script>
+</body>
+
+</html>

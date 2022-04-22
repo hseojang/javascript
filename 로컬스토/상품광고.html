@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    .container {
+        position:relative
+    }
+    .contains {
+        position: absolute;
+        border:1px solid pink;
+        width:210px;
+    }
+     img {
+         width:100px;
+         height:100px;
+     }
+     .each {
+         display: inline-block;
+     }
+</style>
+</head>
+<body>
+    <input type="text" name="" id="">
+<div class="container">
+    <div class="contains">
+        <div class="each"><img src="../image/myroze01.jpg"></div>
+        <div class="each"><img src="../image/myroze02.jpg"></div>
+        <div class="each"><img src="../image/myroze03.jpg"></div>
+        <div class="each"><img src="../image/myroze04.jpg"></div>
+        <div class="each"><img src="../image/myroze05.jpg"></div>
+        <div class="each"><img src="../image/myroze06.jpg"></div>
+    </div>
+    <div class="contains">
+        <div class="each"><img src="../image/jenni01.jpg"></div>
+        <div class="each"><img src="../image/jenni02.jpg"></div>
+        <div class="each"><img src="../image/jenni03.jpg"></div>
+        <div class="each"><img src="../image/jenni04.jpg"></div>
+        <div class="each"><img src="../image/jenni05.jpg"></div>
+        <div class="each"><img src="../image/jenni06.jpg"></div>
+    </div>
+    <div class="contains">
+        <div class="each"><img src="../image/jimin01.jpg"></div>
+        <div class="each"><img src="../image/jimin02.jpg"></div>
+        <div class="each"><img src="../image/jimin03.jpg"></div>
+        <div class="each"><img src="../image/jimin04.jpg"></div>
+        <div class="each"><img src="../image/jimin05.jpg"></div>
+        <div class="each"><img src="../image/jimin06.jpg"></div>
+    </div>
+</div>
+<script>
+    let sIndex = 0;
+    let zIndexMax = 100;
+    const c_contains = document.querySelectorAll(".contains");
+    const f_initZIndex = ()=>{
+        for(let i=0; i< c_contains.length; i++){
+            c_contains[i].style.zIndex = 1;
+        }
+    }
+    const f_loopIndex = () =>{
+        f_initZIndex();
+        c_contains[sIndex].style.zIndex = zIndexMax;
+        sIndex++;
+        if(sIndex == c_contains.length) sIndex = 0;
+        setTimeout(f_loopIndex,2000);
+    }
+
+    f_loopIndex();
+
+
+</script>    
+</body>
+</html>

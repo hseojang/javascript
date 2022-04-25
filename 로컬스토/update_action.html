@@ -11,6 +11,7 @@
   var v_gulDatas = JSON.parse(localStorage.getItem(v_tblName));
   for(var i=0; i<v_gulDatas.length; i++){
       if(v_gulDatas[i].pid == v_gulid){
+        v_gulDatas[i].title = "타이틀바꿩";
         v_gulDatas[i].content = v_content; // 덮어쓰깅
         v_gulDatas[i].skills = v_skills;   // 덮어쓰깅
       }
@@ -20,5 +21,7 @@
 
   alert("잘 수정 되었을 걸용");
   
-//location.href="list.html"; // 서버에 다시 요청 안하고 캐쉬된 페이지를 사용할 수도 있음
+  //날 열어준 창(열어준 놈이라 해서 opener라 함)
+  opener.location.replace("list(2).html");
+  window.close(); //  자신은 닫힘
 </script>

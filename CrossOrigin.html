@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // https://e-7-e.tistory.com
+
+        /*      
+        origin: 기원 
+    
+        http:// 서버명 :8080
+        = 프로토콜 + 도메인(IP) + 포트번호(64K=64* 2의 10승)
+        하나라도 다르면 서로 다른 오리진
+        
+        오리진이 섞이는 걸 크로스 오리진이라고 부름
+        AJAX에서 기본적으로 Cross-Origin 제약사항이 있음
+        (서버 관리자가 설정으로 풀어주거나 다른 것까지 막을 수 있음)
+
+        CORS = Cross-Origin Resource Sharing
+        서버에서 서버로는 인증이 되어있기 때문에 상대 서버 - 내 서버 - 내 클라이언트로의 크로스오리진 연결은 가능
+        상대 서버 - 내 클라이언트로의 연결은 CORS 제약으로 불가능
+        
+        */
+        const xhr = new XMLHttpRequest();
+        let url = "https://www.flickr.com/services/feeds/photos_public.gne?";
+        // xhr.open("get",url+"tags=cat",true); // url을 비우면 자기 자신에게 요청하는 것 같다
+        xhr.open("get","http://localhost:8405/basic/ajax/start",true);
+        
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                alert("잘 오나", xhr.responseText);
+            }
+        }
+        xhr.send();
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    #id_disp {
+        border:1px solid rgb(41, 41, 41);
+        position: relative;
+    }
+    .bar {
+        
+    }
+</style>
+</head>
+<body>
+ 값들<input type="text" id="id_values" size="40" value=""><br>
+ <input type="button" value="차트 가로 그리깅" id="id_drawHor">
+ <input type="button" value="차트 세로 그리깅" id="id_drawVer">
+ <div id="id_disp"></div>
+<script>
+    const c_disp = document.querySelector("#id_disp");
+    const c_values = document.querySelector("#id_values");
+    const c_drawVer = document.querySelector("#id_drawVer");
+    const c_drawHor = document.querySelector("#id_drawHor");
+
+    const colors = "0123456789abcdef"; 
+    const f_ranColor = ()=>{ //16진수식 랜덤 색상 만들기
+        let colorX16 = "#";
+        for (let i=1; i<=6; i++) {
+            colorX16 += colors[Math.floor(Math.random()*colors.length)]
+            // colors 배열에서 16진수 수를 랜덤하게 6자리 뽑기
+        }
+        return colorX16; // AABBCC 형식의 색상값이 반환됨
+    }
+
+    const f_randomColor = () => {
+        let red = Math.floor(Math.random()*255);
+        let green = Math.floor(Math.random()*255);
+        let blue = Math.floor(Math.random()*255);
+
+        return `rgb(${red}, ${green}, ${blue})`; // rgb(r, g, b)
+    }
+
+    const f_drawHor = ()=>{
+
+        c_disp.innerHTML = "";
+        let values = c_values.value.split(",");
+        c_disp.style.height = values.length*30 + "px";
+
+        for(let i=0; i<values.length; i++){
+            let bar = document.createElement("div");
+            bar.style.width = values[i] + "px";
+            bar.style.height = "20px";
+            bar.setAttribute("class","bar");
+            bar.style.position="absolute";
+            bar.style.top = (i*30+ 5)+"px";
+            bar.style.backgroundColor = f_ranColor();
+            c_disp.appendChild(bar);
+        }
+
+    }
+
+    const f_drawVer = ()=>{
+
+        c_disp.innerHTML = "";
+        let values = c_values.value.split(",");
+        let maxVal = f_getMaxValue(values);
+        // 동적인 차트 높이를 만들기 위해 최대값을 구함
+
+        c_disp.style.width = values.length*30 + "px";
+        c_disp.style.height = (maxVal+50) + "px";
+
+        for(let i=0; i<values.length; i++){
+            let bar = document.createElement("div");
+            bar.style.height = values[i] + "px";
+            bar.style.width = "20px";
+            bar.setAttribute("class","bar");
+            bar.style.position="absolute";
+            bar.style.left = (i*30+ 5)+"px";
+            bar.style.top = (maxVal+50-values[i])+"px";
+            bar.style.backgroundColor = f_ranColor();
+            c_disp.appendChild(bar);
+        }
+
+    }
+
+    // 문자열로 된 숫자 배열에서 최대값을 구하는 로직
+    const f_getMaxValue = (p_arr)=>{ 
+        let max = 0;
+        for (let i=0; i<p_arr.length; i++) {
+            let value = parseInt(p_arr[i]);
+            if (max < value) {
+                max = value;
+            }
+        }
+        return max;
+    }
+
+    c_drawVer.addEventListener("click",f_drawVer);
+    c_drawHor.addEventListener("click",f_drawHor);
+
+</script>
+</body>
+</html>

@@ -82,45 +82,48 @@
     let l_mgakdo = 0;
 
     const f_sunRotate = ()=>{
-        l_sgakdo = (l_sgakdo+15) % 360;
+        l_sgakdo = (l_sgakdo+5) % 360;
         c_sun.style.transform = "rotate(" + l_sgakdo + "deg)";
-        setTimeout(f_sunRotate, 200);
+        setTimeout(f_sunRotate, 50);
     }
 
     const f_earthRotate = ()=>{
-        l_egakdo = (l_egakdo+5) % 360;
+        l_egakdo = (l_egakdo+1) % 360;
         c_earth.style.transform = "rotate(" + l_sgakdo + "deg)";
         c_earth.style.left = l_sunCenterX-30 + (c_radius1 * Math.cos(Math.PI/180*l_egakdo)) + "px";
         c_earth.style.top = l_sunCenterY-30 + (c_radius1 * Math.sin(Math.PI/180*l_egakdo)) + "px"; // sin(), cos() 라디안 값이 와야한다.
-        setTimeout(f_earthRotate, 200);
+        setTimeout(f_earthRotate, 50);
     }
 
     const f_moonRotate = ()=>{
         l_earthCenterX = parseInt(c_earth.style.left)+30
         l_earthCenterY = parseInt(c_earth.style.top)+30
-        l_mgakdo = (l_mgakdo+30) % 360;
+        l_mgakdo = (l_mgakdo+5) % 360;
         c_moon.style.transform = "rotate(" + l_mgakdo + "deg)";
         c_moon.style.left = l_earthCenterX-15 + (c_radius2 * Math.cos(Math.PI/180*l_mgakdo)) + "px";
         c_moon.style.top = l_earthCenterY-15 + (c_radius2 * Math.sin(Math.PI/180*l_mgakdo)) + "px"; // sin(), cos() 라디안 값이 와야한다.
-        setTimeout(f_moonRotate, 200);
+        setTimeout(f_moonRotate, 50);
     }
 
-    const f_init = ()=>{
-        // c_sun.style.top = "50vh";
-        // c_sun.style.left = "50vw";
-
+    const f_setPosition = ()=>{
         c_sun.style.top = window.innerHeight/2 - 50 + "px";
         c_sun.style.left = window.innerWidth/2 - 50 + "px";
 
         l_sunCenterX = window.innerWidth/2;  // 그냥 명시적으로
         l_sunCenterY = window.innerHeight/2; // 그냥 명시적으로
+    }
 
+    const f_init = ()=>{
+        // c_sun.style.top = "50vh";
+        // c_sun.style.left = "50vw";
+        f_setPosition();
+        
         f_sunRotate();
         f_earthRotate();
         f_moonRotate();
     }
 
-    window.addEventListener("resize", f_init);
+    window.addEventListener("resize", f_setPosition);
     window.onload = f_init;
 
 </script>

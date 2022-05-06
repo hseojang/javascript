@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .nemo {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        .empty {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            visibility: hidden;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <input type="button" value="가운데 정렬 삼각형" id="id_btn2">
+    <input type="button" value="오른쪽 직각 삼각형" id="id_btn3">
+    <input type="button" value="뒤집어진 삼각형" id="id_btn4">
+    <input type="button" value="둔각삼각형" id="id_btn5">
+    <input type="button" value="???" id="id_btn6">
+    <div id="id_disp"></div>
+    <h1>이런저런 삼각형 만들어보기(로직훈련)</h1>
+    <script>
+
+        const c_disp = document.querySelector("#id_disp");
+        
+        const c_btn2 = document.querySelector("#id_btn2");
+        const c_btn3 = document.querySelector("#id_btn3");
+        const c_btn4 = document.querySelector("#id_btn4");
+        const c_btn5 = document.querySelector("#id_btn5");
+        const c_btn6 = document.querySelector("#id_btn6");
+
+        function f_randomColor() {
+            let red = Math.floor(Math.random() * 256);
+            let green = Math.floor(Math.random() * 256);
+            let blue = Math.floor(Math.random() * 256);
+
+            return `rgb(${red}, ${green}, ${blue})`; // rgb(r, g, b)
+        }
+
+        function f_nemo(p_char) {
+            let l_nemo = document.createElement("div");
+            l_nemo.setAttribute("class", "nemo");
+
+            if (p_char == "*") {
+                l_nemo.style.backgroundColor = f_randomColor();
+                l_nemo.style.color = f_randomColor();
+                l_nemo.innerHTML = "*";
+            }
+            return l_nemo;
+        }
+
+        function f_hidden(p_char) {
+            let l_nemo = document.createElement("div");
+            l_nemo.setAttribute("class", "empty");
+            if (p_char == "*") {
+                l_nemo.innerHTML = "*";
+            }
+            return l_nemo;
+        }
+
+        function f_init() {
+            c_disp.innerHTML = "";
+            for (let i = 1; i <= 10; i++) {
+                for (let j = 1; j <= i; j++) {
+                    c_disp.appendChild(f_nemo("*"));
+                }
+                c_disp.innerHTML += "<br>";
+            }
+            setTimeout(f_init, 500);
+        }
+
+        function f_triangle2() { // 가운데 정렬
+            let c_disp2 = document.createElement("div");
+            c_disp2.innerHTML = "";
+            for (let i = 1; i <= 10; i++) {
+                for (let j = 1; j <= i; j++) {
+                    c_disp2.appendChild(f_nemo("*"));
+                }
+                c_disp2.innerHTML += "<br>";
+            }
+            c_disp2.style.textAlign = "center";
+            c_disp2.style.width = "300px"; 
+            document.body.appendChild(c_disp2);
+        }
+
+        function f_triangle3() { // 오른쪽 직각
+            let c_disp3 = document.createElement("div");
+            c_disp3.innerHTML = "";
+            for (let i = 1; i <= 10; i++) {
+                for (let k = 10-i; k >=1; k--) {
+                    c_disp3.appendChild(f_hidden("*"));
+                }
+                for (let j = 1; j <= i; j++) {
+                    c_disp3.appendChild(f_nemo("*"));
+                }
+
+                c_disp3.innerHTML += "<br>";
+            }
+            // c_disp3.style.textAlign = "right";
+            document.body.appendChild(c_disp3);
+        }
+
+        function f_triangle4() { // 뒤집어진 삼각형
+            let c_disp4 = document.createElement("div");
+            c_disp4.innerHTML = "";
+            for (let i = 10; i >= 1; i--) {
+                for (let j = 1; j <= i; j++) {
+                    c_disp4.appendChild(f_nemo("*"));
+                }
+                c_disp4.innerHTML += "<br>";
+            }
+            c_disp4.style.textAlign = "center";
+            c_disp4.style.width = "300px"; 
+            
+        }
+
+        function f_triangle5() { // 둔각삼각형
+            let c_disp5 = document.createElement("div");
+            c_disp5.innerHTML = "";
+            for (let i = 1; i <= 10; i++) {
+                for (let k = 1; k <=i; k++) {
+                    c_disp5.innerHTML += "&nbsp;";
+                }
+                for (let j = 1; j <= i; j++) {
+                    c_disp5.appendChild(f_nemo("*"));
+                }
+                c_disp5.innerHTML += "<br>";
+            }            
+            c_disp5.style.width = "500px"; 
+            document.body.appendChild(c_disp5);
+        }
+
+        function f_triangle6() { // ??
+            let c_disp6 = document.createElement("div");
+            c_disp6.innerHTML = "";
+            for (let i = 1; i <= 13; i++) {
+                if(i < 7) {
+                for (let l = 13; l >=i; l--) {
+                    c_disp6.innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                }
+                for (let j = 1; j <= i; j++) {
+                    c_disp6.appendChild(f_nemo("*"));
+                    c_disp6.appendChild(f_nemo("*"));
+                }
+
+            } else {
+                for (let l = 13; l >=i; l--) {
+                    c_disp6.innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                }
+                for (let k=13-i; k>= 1; k--) {
+                    c_disp6.appendChild(f_nemo("*"));
+                    c_disp6.appendChild(f_nemo("*"));
+                }
+                for (let l = 13; l >=i; l--) {
+                    c_disp6.innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                }
+            }
+                c_disp6.innerHTML += "<br>";
+            }            
+            document.body.appendChild(c_disp6);
+        }
+
+        window.onload = f_init;
+        c_btn2.addEventListener("click", f_triangle2);
+        c_btn3.addEventListener("click", f_triangle3);
+        c_btn4.addEventListener("click", f_triangle4);
+        c_btn5.addEventListener("click", f_triangle5);
+        c_btn6.addEventListener("click", f_triangle6);
+
+
+    </script>
+</body>
+
+</html>

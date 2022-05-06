@@ -35,9 +35,9 @@
     }
 
     const f_randomColor = () => {
-        let red = Math.floor(Math.random()*255);
-        let green = Math.floor(Math.random()*255);
-        let blue = Math.floor(Math.random()*255);
+        let red = Math.floor(Math.random()*256); // math.random()은 0이상 1미만
+        let green = Math.floor(Math.random()*256); // math.floor()는 주어진 수 이하의 수 중 가장 큰 정수(정수 이상의 소수점 잘라내기)
+        let blue = Math.floor(Math.random()*256);
 
         return `rgb(${red}, ${green}, ${blue})`; // rgb(r, g, b)
     }

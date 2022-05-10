@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ? 문제 ?선다형 형식 설문 또는 시험
+        const c_munsu = 5;  // 문제의 수
+        const c_dahyung = 5;   // n지 선다인지
+
+        const c_jungdaps = []; // 정답을 저장할 배열
+        for (let i = 0; i < c_munsu; i++) { // 문제 수 만큼 답 생성
+            c_jungdaps.push(Math.ceil(Math.random() * c_dahyung)); // 가지 수 중 랜덤 정답 생성
+        }
+
+        for (let i = 1; i <= c_munsu; i++) {
+            document.write("<div id=id_munjeBlock"+i+"><h3>" + i + "번 문제</h3>");
+            for (let j = 1; j <= c_dahyung; j++) {
+                document.write(j + "<input type=radio name=mun" + i + " value=" + j + ">&nbsp;")
+            }
+            document.write("<input type=hidden name=nm_dap value="+c_jungdaps[i-1]+">")
+            document.write("</div><hr>")
+        }
+
+// 맞은거 백그라운드 파란색 틀린거 빨간색
+// 채점하면 정답 보이게
+    </script>
+    <br>
+    맞은 개수 : <input type="text" id="id_cnt" value="">
+    맞은 점수 : <input type="text" id="id_jumsu" value="">
+    <input type="button" id="id_eval" value="채점">
+    <script>
+        const c_eval = document.querySelector("#id_eval");
+        const c_cnt = document.querySelector("#id_cnt");
+        const c_jumsu = document.querySelector("#id_jumsu");
+
+        const f_chaejum = ()=>{
+            let count = 0;
+            let dapji = document.querySelectorAll("input:checked");
+            for (i=1; i<=c_munsu; i++) {
+                let munjeDiv = document.querySelector("#id_munjeBlock"+i);
+                if(dapji[i-1].value == c_jungdaps[i-1]) {
+                    munjeDiv.style.backgroundColor = "lightblue";
+                    count++;
+                } else {
+                    munjeDiv.style.backgroundColor = "red";
+                }
+                document.querySelectorAll("input[name=nm_dap]")[i-1].type = "text";
+            }
+            c_cnt.value = count;
+            c_jumsu.value = (100/c_munsu)*count;
+        }
+
+        c_eval.addEventListener("click", f_chaejum)
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input type="button" value="한식" class="class_btn" id="btn_hansik"><br>
+        <input type="button" value="중식" class="class_btn" id="btn_jungsik"><br>
+        <input type="button" value="일식" class="class_btn" id="btn_ilsik"><br>
+        <input type="button" value="양식" class="class_btn" id="btn_yangsik"><br>
+        <input type="button" value="분식" class="class_btn" id="btn_bunsik"><br>
+        <input type="button" value="전체" class="class_btn" id="btn_all"><br><br>
+        <input type="text" id="id_disp" readonly>
+    </div>
+    <script>
+        const c_btns = document.querySelectorAll(".class_btn");
+        const c_disp = document.querySelector("#id_disp");
+
+        const f_choice = (p_category) => {
+            c_disp.value = "";
+            let menuList = c_menu[p_category];
+            let random = Math.floor(Math.random() * menuList.length);
+            let menu = menuList[random];
+            console.log(random);
+            c_disp.value = menu;
+        }
+
+        const c_menu = {
+            "한식": ["옹기마을", "오박사 전복해신탕", "궁전가든",
+                "3일 소고기국밥", "순남시래기", "수미쭈꾸미세상", "유정식당",
+                "금성칡냉면", "동아식당", "원조여수아구찜", "황지", "대복보리밥",
+                "본가순대", "화평본가", "경복궁 우리밥상", "전주단지네", "진국",
+                "항아리보쌈", "한지붕식당", "꽃님이네", "맛고을", "언니네",
+                "참이맛감자탕", "밥통령"],
+            "중식": ["다온짬뽕", "초월짬뽕", "복록수", "명성반점", "한중마라탕"],
+            "일식": ["우리의 오늘", "회데이", "스시은인"],
+            "양식": ["7930손님식탁", "반석돈까스", "써브웨이"],
+            "분식": ["오류동 꼬마김밥", "부부칼국수", "하나칼국수 & 김밥",
+                "칼국수 만드는 사람들", "신대칼국수", "잘임스국수앤덮밥",
+                "큰엄마떡볶이", "칼국수이야기", "해드림김밥"],
+            "전체": ["오류동 꼬마김밥",
+            "다온짬뽕",
+            "7930손님식탁",
+            "반석돈까스",
+            "부부칼국수",
+            "옹기마을",
+            "오박사 전복해신탕",
+            "하나칼국수 & 김밥",
+            "우리의 오늘",
+            "칼국수 만드는 사람들",
+            "궁전가든",
+            "초월짬뽕",
+            "3일 소고기국밥",
+            "복록수",
+            "순남시래기",
+            "수미쭈꾸미세상",
+            "유정식당",
+            "금성칡냉면",
+            "신대칼국수",
+            "동아식당",
+            "원조여수아구찜",
+            "황지",
+            "대복보리밥",
+            "본가순대",
+            "명성반점",
+            "화평본가",
+            "경복궁 우리밥상",
+            "잘임스국수앤덮밥",
+            "전주단지네",
+            "한중마라탕",
+            "진국",
+            "항아리보쌈",
+            "큰엄마떡볶이",
+            "한지붕식당",
+            "회데이",
+            "칼국수이야기",
+            "꽃님이네",
+            "맛고을",
+            "언니네",
+            "참이맛감자탕",
+            "해드림김밥",
+            "밥통령",
+            "써브웨이",
+            "스시은인"] 
+        }
+
+       for (let i=0; i<c_btns.length; i++) {
+        c_btns[i].onclick = f_choice.bind(document, c_btns[i].value);
+       }
+      
+        const c_menus = ["오류동 꼬마김밥",
+            "다온짬뽕",
+            "7930손님식탁",
+            "반석돈까스",
+            "부부칼국수",
+            "옹기마을",
+            "오박사 전복해신탕",
+            "하나칼국수 & 김밥",
+            "우리의 오늘",
+            "칼국수 만드는 사람들",
+            "궁전가든",
+            "초월짬뽕",
+            "3일 소고기국밥",
+            "복록수",
+            "순남시래기",
+            "수미쭈꾸미세상",
+            "유정식당",
+            "금성칡냉면",
+            "신대칼국수",
+            "동아식당",
+            "원조여수아구찜",
+            "황지",
+            "대복보리밥",
+            "본가순대",
+            "명성반점",
+            "화평본가",
+            "경복궁 우리밥상",
+            "잘임스국수앤덮밥",
+            "전주단지네",
+            "한중마라탕",
+            "진국",
+            "항아리보쌈",
+            "큰엄마떡볶이",
+            "한지붕식당",
+            "회데이",
+            "칼국수이야기",
+            "꽃님이네",
+            "맛고을",
+            "언니네",
+            "참이맛감자탕",
+            "해드림김밥",
+            "밥통령",
+            "써브웨이",
+            "스시은인"];
+
+    </script>
+</body>
+
+</html>

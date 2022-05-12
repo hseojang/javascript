@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrapper {
+            margin: 0 auto;
+            width: 500px;
+            height: 550px;
+            border: 5px solid pink;
+            position: relative;
+        }
+
+        #tjin {
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            bottom: 1px;
+        }
+
+        #id_txt {
+            width: 70%;
+            height: 50px;
+            font-size: 20px;
+            text-align: right;
+        }
+
+        #id_btn {
+            width: 28%;
+            height: 50px;
+            border: 1px solid black;
+            font-size: 20px;
+        }
+
+        #tjbg {
+            position: relative;
+            height: 495px;
+            width: 100%;
+            border: 1px solid black;
+            overflow: hidden;
+        }
+
+        .txt {
+            position: absolute;
+            background-color: black;
+            color: yellow
+        }
+
+        #id_complete {
+            margin: 0 auto;
+            width: 500px;
+            height: 50px;
+            border: 5px solid rgb(111, 129, 233);
+            position: relative;
+        }
+
+        .txt_complete {
+            position: relative;
+            display: inline-block;
+            background-color: lightblue;
+            color: black;
+            border: 3px solid white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="tjbg"></div>
+        <div id="tjin">
+            <input type="text" id="id_txt">
+            <input type="button" id="id_btn" value="시작">
+        </div>
+    </div>
+    <div id="id_complete"></div>
+
+    <script>
+        var v_tjbg = document.querySelector("#tjbg");
+        var v_txt = document.querySelector("#id_txt");
+        var v_btn = document.querySelector("#id_btn");
+
+        var v_complete = document.querySelector("#id_complete");
+
+        var f_keydown = function () {
+            if (event.keyCode == 13) {
+                var v_userInput = v_txt.value;
+                for (var i = 0; i < v_moveWords.length; i++) {
+                    var ckWord = v_moveWords[i];
+                    if (ckWord.innerHTML == v_userInput) {
+                        v_moveWords.splice(i, 1); //해당 div를 배열에서 열외
+                        ckWord.style.top = "";
+                        ckWord.style.left = "";
+                        ckWord.removeAttribute("class");
+                        ckWord.setAttribute("class", "txt_complete");
+                        v_complete.appendChild(ckWord); // 맞춘 칸에 붙이기
+
+                        v_txt.value = "";
+                        break;
+                        // 전체 div를 헤집는 방식이라 약간 마음에 안든다...
+                    }
+
+                }
+            }
+        }
+        v_txt.addEventListener("keydown", f_keydown);
+
+        var v_moveWords = []; //글자를 배열에 담아서 한번에 움직여야 같은 글자가 의도치 않게 여러번 호출되는 걸 막을 수 있겠음
+
+
+        // 글자를 랜덤하게 고르는 함수와 글자를 아래방향으로 움직이는 함수를 구별해야
+        // setTimeout에 따라 블럭별로 움직일 수 있을듯
+
+        //랜덤 단어 선택 함수 
+        var f_selWords = function () {
+            var v_ranNumber = Math.ceil(Math.random() * members.length);
+            var v_ranWord = document.querySelector("#word" + v_ranNumber);
+            var v_ranLef = Math.ceil(Math.random() * 400);
+
+            // 같은 단어가 여러번 담기지 못하도록 검증
+            for (var i = 0; i < v_moveWords.length; i++) {
+                if (v_moveWords[i].innerHTML == v_ranWord.innerHTML) {
+                    setTimeout(f_selWords, 500); // 그냥 리턴하면 함수가 영원히 꺼짐
+                    return;
+                }
+            }
+
+            v_ranWord.style.left = v_ranLef + "px";
+            v_moveWords.push(v_ranWord);
+            setTimeout(f_selWords, 500);
+        }
+
+        //배열에 담기 글자들을 아래도 움직임
+        var f_moveWords = function () {
+            for (var i = 0; i < v_moveWords.length; i++) {
+                var v_ranSpeed = Math.ceil(Math.random() * 15);
+                v_moveWords[i].style.top =
+                    parseInt(v_moveWords[i].style.top) + v_ranSpeed + "px";
+                if (parseInt(v_moveWords[i].style.top) >= 495) {
+                    v_moveWords[i].style.top = "-50px"
+                }
+            }
+            setTimeout(f_moveWords, 400);
+        }
+
+        var f_start = function () {
+            f_selWords();
+            f_moveWords();
+            v_txt.focus();
+        }
+        v_btn.onclick = f_start;
+
+
+        var members = "오세현,김현준,조현,한찬길,김민혁," +
+            "경송은,김지훈,이계림,류진,신재호," +
+            "임희수,박솔재,한정수,김정선,김정진," +
+            "진예인,김희정,박경신,김예은,장윤서," +
+            "조윤주,김치훈,김광국,장현서";
+        members = members.split(","); // 배열로 만들기
+
+        // 제어하기 편하게 div element로 만들기
+        for (var i = 0; i < members.length; i++) {
+            var v_div = document.createElement("div");
+            v_div.setAttribute("id", "word" + (i + 1));
+            v_div.innerHTML = members[i];
+            v_div.setAttribute("class", "txt");
+            v_div.style.top = "-50px" // 화면 밖으로 보내기
+            v_tjbg.appendChild(v_div);
+        }
+
+        /*
+        var f_move = function (p_div) {
+            p_div.style.top = parseInt(p_div.style.top) + 10 + "px";
+            p_div.style.left = parseInt(p_div.style.left) + v_dir + "px";
+            v_dir = -v_dir;
+            setTimeout(f_move.bind(document, p_div), 500);
+        }
+
+        var f_pick = function (p_num) {
+            var v_ranDiv = v_tjbg.children[Math.floor(Math.random() * p_num)];
+            v_moveWords.push(v_ranDiv);
+            return v_ranDiv; // 0에서 num-1 사이의 숫자 랜덤
+        }
+
+        var f_start = function () {
+            var v_div = f_pick(members.length);
+            console.log(v_div);
+            f_move(v_div);
+            setTimeout(f_start, 2000);
+        }
+        */
+
+    </script>
+</body>
+
+</html>

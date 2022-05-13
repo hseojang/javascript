@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>이런모달</title>
+<style>
+    #id_modal {
+        z-index: 99999; /* 아주 큰 값으로 앞으로 오도록 */
+        position: fixed;
+        left:0px; top:0px;
+        width:100vw;
+        height:100vh;
+        background-color: rgba(100, 100, 100, 0.3);
+        display: none; /* 첨에는 안 보이겡 */
+    }
+    #id_content {
+        position: absolute;
+        left:20vw;
+        top:20vh;
+    }
+</style>
+</head>
+<body>
+<div id="id_modal">
+    <div id="id_content">
+        <h1>나야나 모달안에 컨텐트</h1>
+    </div>
+</div>
+<h1>난 그냥 원래 있는 h1</h1>
+<input type="button" value="모달보이깅" onclick="f_modalShow()">
+<script>
+    const c_modal = document.querySelector("#id_modal");
+    c_modal.onclick = ()=>{
+        event.target.style.display="none"; // 다시 안보이깅, 자리도 안차지
+    }
+    const f_modalShow = ()=>{
+        c_modal.style.display="block"; //보이깅
+    }
+</script>
+</body>
+</html>
